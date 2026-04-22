@@ -1,0 +1,350 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/swayrider/protos/auth/v1;authv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+service AuthService {
+  rpc CheckPasswordStrength(CheckPasswordStrengthRequest) returns (CheckPasswordStrengthResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/check-password-strength"
+      body: "*"
+    };
+  }
+
+  // Admin aanmaken
+  rpc CreateAdmin(CreateAdminRequest) returns (CreateAdminResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/create-admin"
+      body: "*"
+    };
+  }
+
+  // Gebruiker registreren
+  rpc Register(RegisterRequest) returns (RegisterResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/register"
+      body: "*"
+    };
+  }
+
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/verify-email"
+      body: "*"
+    };
+  }
+
+  // Login met e-mail en wachtwoord
+  rpc Login(LoginRequest) returns (LoginResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/login"
+      body: "*"
+    };
+  }
+
+  rpc Logout(LogoutRequest) returns (LogoutResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/logout"
+      body: "*"
+    };
+  }
+
+  rpc GetToken(GetTokenRequest) returns (GetTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/token"
+      body: "*"
+    };
+  }
+
+  rpc Refresh(RefreshRequest) returns (RefreshResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/refresh"
+      body: "*"
+    };
+  }
+
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/change-password"
+      body: "*"
+    };
+  }
+  
+  rpc ChangeAccountType(ChangeAccountTypeRequest) returns (ChangeAccountTypeResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/internal/change-account-type"
+      body: "*"
+    };
+  }
+
+  // Info over de ingelogde gebruiker ophalen (via token)
+  rpc WhoAmI(WhoAmIRequest) returns (WhoAmIResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/whoami"
+    };
+  }
+
+  rpc WhoIs(WhoIsRequest) returns (WhoIsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/internal/whois"
+      body: "*"
+    };
+  }
+
+  rpc CreateVerificationToken(CreateVerificationTokenRequest) returns (CreateVerificationTokenResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/internal/create-verification-token"
+    };
+  }
+
+  rpc CheckVerificationToken(CheckVerificationTokenRequest) returns (CheckVerificationTokenResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/internal/check-verification-token"
+      body: "*"
+    };
+  }
+
+  rpc RequestPasswordReset(RequestPasswordResetRequest) returns (RequestPasswordResetResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/request-password-reset" 
+      body: "*"
+    };
+  }
+
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/reset-password" 
+      body: "*"
+    };
+  }
+
+  rpc PublicKeys(PublicKeysRequest) returns (PublicKeysResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/public-keys"
+    };
+  }
+
+  rpc CreateServiceClient(CreateServiceClientRequest) returns (CreateServiceClientResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/create-service-client"
+      body: "*"
+    };
+  }
+
+  rpc DeleteServiceClient(DeleteServiceClientRequest) returns (DeleteServiceClientResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/delete-service-client"
+      body: "*"
+    };
+  }
+
+  rpc ListServiceClients(ListServiceClientsRequest) returns (ListServiceClientsResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/list-service-clients"
+    };
+  }
+}
+
+message CheckPasswordStrengthRequest {
+  string password = 1;
+}
+
+message CheckPasswordStrengthResponse {
+  bool is_strong = 1;
+  string message = 2;
+}
+
+message CreateAdminRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateAdminResponse {
+  string user_id = 1;
+  string message = 2;
+}
+
+message RegisterRequest {
+  string email = 1;
+  string password = 2;
+  string verificationUrl = 3;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+  string message = 2;
+}
+
+message VerifyEmailRequest {
+  string email =1 ;
+  string verificationUrl = 2;
+}
+
+message VerifyEmailResponse {}
+
+message GetTokenRequest {
+  string client_id = 1;
+  string client_secret = 2;
+  repeated string scopes = 3;
+}
+
+message GetTokenResponse {
+  string access_token = 1;
+  repeated string scopes = 2;
+  google.protobuf.Timestamp valid_until = 3;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+  bool remember_me = 3;
+}
+
+message LoginResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message LogoutRequest {
+  string refresh_token = 1;
+}
+
+message LogoutResponse {}
+
+message RefreshRequest {
+  string refresh_token = 1;
+  bool remember_me = 2;
+}
+
+message RefreshResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+}
+
+message ChangePasswordRequest {
+  string old_password = 1;
+  string new_password = 2;
+}
+
+message ChangePasswordResponse {
+  string message = 1;
+}
+
+message ChangeAccountTypeRequest {
+  string user_id = 1;
+  string account_type = 2;
+}
+
+message ChangeAccountTypeResponse {
+  string message = 1;
+}
+
+message WhoAmIRequest {}
+
+message WhoAmIResponse {
+  string user_id = 1;
+  string email = 2;
+  bool is_verified = 3;
+  bool is_admin = 4;
+  string account_type = 5;
+}
+
+message WhoIsRequest {
+  oneof whois_oneof {
+    string email = 1;
+    string user_id = 2;
+  }
+}
+
+message WhoIsResponse {
+  string user_id = 1;
+  string email = 2;
+  bool is_verified = 3;
+  bool is_admin = 4;
+  string account_type = 5;
+}
+
+message CreateVerificationTokenRequest {}
+
+message CreateVerificationTokenResponse {
+  string user_id = 1;
+  string token = 2;
+  google.protobuf.Timestamp valid_until = 3;
+}
+
+message CheckVerificationTokenRequest {
+  string user_id = 1;
+  string token = 2;
+}
+
+message CheckVerificationTokenResponse {
+  bool is_valid = 1;
+}
+
+message RequestPasswordResetRequest {
+  string email = 1;
+  string resetUrl = 2;
+}
+
+message RequestPasswordResetResponse {
+  /*string user_id = 1;
+  string token = 2;
+  google.protobuf.Timestamp valid_until = 3;*/
+}
+
+message ResetPasswordRequest {
+  string user_id = 1;
+  string token = 2;
+  string new_password = 3;
+}
+
+message ResetPasswordResponse {
+  string message = 1;
+}
+
+message PublicKeysRequest {}
+
+message PublicKeysResponse {
+  repeated string keys = 1;
+}
+
+message CreateServiceClientRequest {
+  string name = 1;
+  string description = 2;
+  repeated string scopes = 3;
+}
+
+message CreateServiceClientResponse {
+  string client_id = 1;
+  string client_secret = 2;
+}
+
+message DeleteServiceClientRequest {
+  string client_id = 1;
+}
+
+message DeleteServiceClientResponse {
+  string message = 1;
+}
+
+message ListServiceClientsRequest {
+   int32 page = 1;
+   int32 page_size = 2;
+}
+
+message ListServiceClientsResponse {
+  message Client {
+    string client_id = 1;
+    string name = 2;
+    string description = 3;
+    repeated string scopes = 4;
+  }
+
+  repeated Client clients = 1;
+  int32 num_clients = 2; 
+}
+

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package common_types;
+
+option go_package = "github.com/swayrider/protos/common_types/geo;geo";
+
+message Coordinate {
+  double lat = 1;
+  double lon = 2;
+}
+
+message BoundingBox {
+  Coordinate bottom_left = 1;
+  Coordinate top_right = 2;
+}
+
+message Polygon {
+  repeated Coordinate points = 1;
+}

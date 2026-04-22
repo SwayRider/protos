@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package mail.v1;
+
+option go_package = "github.com/swayrider/protos/mail/v1;mailv1";
+
+import "google/api/annotations.proto";
+
+service MailService {
+  rpc Send(SendRequest) returns (SendResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/mail/send"
+      body: "*"
+    };
+  }
+
+  rpc SendInternal(SendRequest) returns (SendResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/mail/internal/send"
+      body: "*"
+    };
+  }
+
+  rpc SendTemplate(SendTemplateRequest) returns (SendTemplateResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/mail/send-template"
+      body: "*"
+    };
+  }
+
+  rpc SendTemplateInternal(SendTemplateRequest) returns (SendTemplateResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/mail/internal/send-template"
+      body: "*"
+    };
+  }
+}
+
+message SendRequest {
+  string from = 1;
+  repeated string to = 2;
+  repeated string cc = 3;
+  repeated string bcc = 4;
+  string subject = 5;
+  string htmlBody = 6;
+  string textBody = 7;
+}
+
+message SendResponse {
+  string message = 1;
+}
+
+message SendTemplateRequest {
+  string from = 1;
+  repeated string to = 2;
+  repeated string cc = 3;
+  repeated string bcc = 4;
+  string subject = 5;
+  string html_template = 6;
+  string text_template = 7;
+  map<string, string> data = 8;
+}
+
+message SendTemplateResponse {
+  string message = 1;
+}
+

@@ -1,0 +1,396 @@
+syntax = "proto3";
+
+package router.v1;
+
+option go_package = "github.com/swayrider/protos/router/v1;routerv1";
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+import "common_types/geo/geo.proto";
+
+service RouterService {
+  rpc Route(RouteRequest) returns (RouteResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/router/route"
+      body: "*"
+    };
+  }
+}
+
+enum BikeShareManeuver {
+  BS_NONE_ACTION = 0;
+  BS_RENT_BIKE_AT_BIKESHARE = 1;
+  BS_RETURN_BIKE_AT_BIKESHARE = 2;
+}
+
+enum DateTimeKind {
+  DT_CURRENT_DEPARTURE = 0;
+  DT_SPECIFIED_DEPARTURE = 1;
+  DT_SPECIFIED_ARRIVAL = 2;
+  DT_INVARIANT = 3;
+}
+
+// Specifications of a location
+// 
+// +---------------+---------+----------+-------------------+
+// | Location Type | Allow   | Generate | Arrival/Departure |
+// |               | U-Turns | Legs     | Maneuvers         |
+// +---------------+---------+----------+-------------------+
+// | Break         | Yes     | Yes      | Yes               |
+// | Through       | No      | No       | No                |
+// | Via           | Yes     | No       | No                |
+// | Break Through | No      | Yes      | Yes               |
+// +---------------+---------+----------+-------------------+
+enum LocationType {
+  L_BREAK = 0;            
+  L_THROUGH = 1;
+  L_VIA = 2;
+  L_BREAK_THROUGH = 3;
+}
+
+enum ManeuverType {
+  M_NONE = 0;
+  M_START = 1;
+  M_START_RIGTH = 2;
+  M_START_LEFT = 3;
+  M_DESTINATION = 4;
+  M_DESTINATION_RIGHT = 5;
+  M_DESTINATION_LEFT = 6;
+  M_BECOMES = 7;
+  M_CONTINUE = 8;
+  M_SLIGHT_RIGHT = 9;
+  M_RIGHT = 10;
+  M_SHARP_RIGHT = 11;
+  M_UTURN_RIGHT = 12;
+  M_UTURN_LEFT = 13;
+  M_SHARP_LEFT = 14;
+  M_LEFT = 15;
+  M_SLIGHT_LEFT = 16;
+  M_RAMP_STRAIGHT = 17;
+  M_RAMP_RIGHT = 18;
+  M_RAMP_LEFT = 19;
+  M_EXIT_RIGHT = 20;
+  M_EXIT_LEFT = 21;
+  M_STAY_STRAIGHT = 22;
+  M_STAY_RIGHT = 23;
+  M_STAY_LEFT = 24;
+  M_MERGE = 25;
+  M_ROUNDABOUT_ENTER = 26;
+  M_ROUNDABOUT_EXIT = 27;
+  M_FERRY_ENTER = 28;
+  M_FERRY_EXIT = 29;
+  M_TRANSIT = 30;
+  M_TRANSIT_TRANSFER = 31;
+  M_TRANSIT_REMAIN_ON = 32;
+  M_TRANSIT_CONNECTION_START = 33;
+  M_TRANSIT_CONNECTION_TRANSFER = 34;
+  M_TRANSIT_CONNECTION_DESTINATION = 35;
+  M_POST_TRANSIT_CONNECTION_DESTINATION = 36;
+  M_MERGE_RIGHT = 37;
+  M_MERGE_LEFT = 38;
+  M_ELEVATOR_ENTER = 39;
+  M_STEPS_ENTER = 40;
+  M_ESCALATOR_ENTER = 41;
+  M_BUILDING_ENTER = 42;
+  M_BUILDING_EXIT = 43;
+}
+
+enum RoadClass {
+  RC_MOTORWAY = 0;
+  RC_TRUNK = 1;
+  RC_PRIMARY = 2;
+  RC_SECONDARY = 3;
+  RC_TERTIARY = 4;
+  RC_UNCLASSIFIED = 5;
+  RC_RESIDENTIAL = 6;
+  RC_SERVICE = 7;
+  RC_TRACK = 8;
+}
+
+enum RoutingMode {
+  RM_CAR = 0;
+  RM_MOTORSCOOTER = 1;
+  RM_MOTORCYCLE = 2;
+}
+
+enum RoutingResultMode {
+  RRM_NAVIGATION = 0;
+  RRM_DISPLAY_WITH_DETAILS = 1;
+  RRM_DISPLAY = 2;
+  RRM_MINIMAL = 3;
+}
+
+enum SideOfStreet {
+  SS_LEFT = 0;
+  SS_RIGHT = 1;
+}
+
+enum TransitStopKind {
+  TS_SIMPLE_STOP = 0;
+  TS_STATION = 1;
+}
+
+enum TravelMode {
+  TM_DRIVE = 0;
+  TM_PEDESTRIAN = 1;
+  TM_BICYCLE = 2;
+  TM_TRANSIT = 3;
+}
+
+enum TravelType {
+  TT_CAR = 0;
+  TT_MOTORSCOOTER = 1;
+  TT_MOTORCYCLE = 2;
+  TT_TRUCK = 3;
+  TT_BUS = 4;
+  TT_FOOT = 5;
+  TT_WHEELCHAIR = 6;
+  TT_ROAD = 7;
+  TT_HYBRID = 8;
+  TT_CROSS = 9;
+  TT_MOUNTAIN = 10;
+  TT_TRAM = 11;
+  TT_METRO = 12;
+  TT_RAIL = 13;
+  TT_FERRY = 14;
+  TT_CABLE_CAR = 15;
+  TT_GONDOLA = 16;
+  TT_FUNICULAR = 17;
+}
+
+enum TurnDirectionFlag {
+  TD_EMPTY = 0;
+  TD_NONE = 1;
+  TD_THROUGH = 2;
+  TD_SHARP_LEFT = 4;
+  TD_LEFT = 8;
+  TD_SLIGHT_LEFT = 16;
+  TD_SLIGHT_RIGHT = 32;
+  TD_RIGHT = 64;
+  TD_SHARP_RIGHT = 128;
+  TD_REVERSE = 256;
+  TD_MERGE_TO_LEFT = 512;
+  TD_MERGE_TO_RIGHT = 1024;
+}
+
+enum RouteType {
+  RT_UNSPECIFIED = 0;  // defaults to RT_FASTEST behaviour
+  RT_FASTEST = 1;      // minimize travel time (Valhalla defaults)
+  RT_SHORTEST = 2;     // minimize distance
+  RT_SCENIC = 3;       // prefer scenic/rural roads, avoid highways
+}
+
+enum UnpavedHandling {
+  UH_NEUTRAL = 0;
+  UH_PREFER = 1;
+  UH_AVOID = 2;
+}
+
+enum Unit {
+  U_METRIC = 0;
+  U_IMPERIAL = 1;
+}
+
+message DateTime {
+    DateTimeKind kind = 1;
+    google.protobuf.Timestamp value = 2;
+}
+
+message Leg {
+  repeated Maneuver maneuvers = 1;
+  repeated double elevation = 2;
+  optional double elevation_interval = 3;
+  string shape = 4;
+  Summary summary = 5;
+  bool merge_next = 6;
+}
+
+message LocationInfo {
+  optional string name = 1;
+  optional string city = 2;
+  optional string State = 3;
+  optional string postal_code = 4;
+  optional string country = 5;
+  optional string phone = 6;
+  optional string url = 7;
+}
+
+message LocationSearchFilter {
+  optional bool excludeTunnel = 1;
+  optional bool excludeBridge = 2;
+  optional bool excludeToll = 3;
+  optional bool excludeFerry = 4;
+  optional bool excludeRamp = 5;
+  optional bool excludeClosures = 6;
+  optional RoadClass min_road_class = 7;
+  optional RoadClass max_road_class = 9;
+}
+
+message Maneuver {
+  ManeuverType type = 1;
+  string instruction = 2;
+  string verbal_transition_alert_instruction = 3;
+  string verbal_pre_transition_instruction = 4;
+  string verbal_post_transition_instruction = 5;
+  repeated string street_names = 6;
+  repeated string begin_street_names = 7;
+  double time = 8;
+  double length = 9;
+  int32 begin_shape_index = 10;
+  int32 end_shape_index = 11;
+  optional bool toll = 12;
+  optional bool highway = 13;
+  optional bool rough = 14;
+  optional bool gate = 15;
+  optional bool ferry = 16;
+  optional Sign sign = 17;
+  optional int32 roundabout_exit_count = 18;
+  optional string depart_instruction = 19;
+  optional string verbal_depart_instruction = 20;
+  optional string arrive_instruction = 21;
+  optional string verbal_arrive_instruction = 22;
+  optional TransitInfo transit_info = 23;
+  optional bool verbal_multi_cue = 24;
+  TravelMode travel_mode = 25;
+  TravelType travel_type = 26;
+  optional BikeShareManeuver bss_maneuver_type = 27;
+  int32 bearing_before = 28;
+  int32 bearing_after = 29;
+  repeated TurnLane lanes = 30;
+}
+
+message RouteLocation {
+  common_types.Coordinate location = 1;
+  LocationType type = 2;
+  optional int32 preferred_heading = 3;
+  optional LocationInfo info = 4;
+  optional LocationSearchFilter filters = 5;
+}
+
+message RouteLocationReturned {
+  common_types.Coordinate location = 1;
+  LocationType type = 2;
+  optional int32 preferred_heading = 3;
+  optional LocationInfo info = 4;
+  optional LocationSearchFilter filter = 5;
+  optional SideOfStreet side_of_street = 6;
+  optional google.protobuf.Timestamp date_time = 7;
+  optional string time_zone_offset = 8;
+  optional string time_zone_name = 9;
+  //optional int32 original_index = 10;
+}
+
+message RouteOptions {
+  optional double highway_preference = 1;
+  optional double tollway_preference = 2;
+  optional double living_street_preference = 3;
+  optional double track_preference = 4;
+  optional double trail_preference = 5;
+  optional double primary_preference = 6;
+  optional double ferry_preference = 7;
+  reserved 8 to 20;
+  optional bool exclude_unpaved = 21;
+  reserved 22 to 30;
+  optional bool shortest_path = 31;
+  optional double distance_preference = 32;
+}
+
+message Sign {
+    repeated SignElement exit_number_elements = 1;
+    repeated SignElement exit_branch_elements = 2;
+    repeated SignElement exit_toward_elements = 3;
+    repeated SignElement exit_name_elements = 4;
+}
+
+message SignElement {
+  string text = 1;
+  optional int32 consecutive_count = 2;
+}
+
+message Summary {
+  double time = 1;
+  double length = 2;
+  bool has_toll = 3;
+  bool has_highway = 4;
+  bool has_ferry = 5;
+  common_types.BoundingBox bounding_box = 6;
+}
+
+message TransitInfo {
+  string onestop_id = 1;
+  string short_name = 2;
+  string long_name = 3;
+  string headsign = 4;
+  int32 color = 5;
+  int32 text_color = 6;
+  string description = 7;
+  string operator_onestop_id = 8;
+  string operator_name = 9;
+  string operator_url = 10;
+  repeated TransitStop transit_stops = 11;
+}
+
+message TransitStop {
+  TransitStopKind type = 1;
+  string name = 2;
+  google.protobuf.Timestamp arrival_date_time = 3;
+  google.protobuf.Timestamp departure_date_time = 4;
+  bool is_parent_stop = 5;
+  bool assumed_schedule = 6;
+  common_types.Coordinate location = 7;
+}
+
+message Trip {
+  int32 status = 1;
+  string status_message = 2;
+  Unit unit = 3;
+  string language = 4;
+  repeated RouteLocationReturned locations = 5;
+  repeated Leg legs = 6;
+  Summary summary = 7;
+}
+
+message TurnLane {
+  uint32 directions = 1;
+  optional uint32 valid = 2;
+  optional uint32 active = 3;
+}
+
+message VehicleInfo {
+  optional double height = 1;
+  optional double width = 2;
+  optional double length = 3;
+  optional double weight = 4;
+  optional double top_speed = 5;
+}
+
+message RouteRequest {
+  optional string id = 1;
+  RoutingMode mode = 2;
+  RoutingResultMode result_mode = 3;
+  Unit unit = 4;
+  optional string language = 5;
+  repeated RouteLocation locations = 6;
+  repeated RouteLocation exclude_locations = 7;
+  repeated common_types.Polygon exclude_polygons = 8;
+  optional DateTime date_time = 9;
+  optional RouteOptions route_options = 10;
+  optional VehicleInfo vehicle_info = 11;
+  optional RouteType route_type = 12;
+  optional float scenic_preference = 13;
+  optional float highway_avoidance = 14;
+  optional float toll_avoidance = 15;
+  optional UnpavedHandling unpaved_handling = 16;
+}
+
+message RouteSummary {
+  string start_region = 1;
+  string end_region = 2;
+}
+
+message RouteResponse {
+  optional string id = 1;
+  Trip trip = 2;
+  RouteSummary summary = 3;
+}
+

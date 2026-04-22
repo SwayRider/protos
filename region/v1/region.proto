@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package region.v1;
+
+option go_package = "github.com/swayrider/protos/region/v1;regionv1";
+
+import "google/api/annotations.proto";
+import "common_types/geo/geo.proto";
+
+service RegionService {
+  rpc SearchPoint(SearchPointRequest) returns (SearchPointResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/search-point"
+      body: "*"
+    };
+  }
+
+  rpc SearchBox(SearchBoxRequest) returns (SearchBoxResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/search-box"
+      body: "*"
+    };
+  }
+
+  rpc SearchRadius(SearchRadiusRequest) returns (SearchRadiusResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/search-radius"
+      body: "*"
+    };
+  }
+
+  rpc FindCrossingLocations(FindCrossingLocationsRequest) returns (FindCrossingLocationsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/find-crossing-locations"
+      body: "*"
+    };
+  }
+
+  rpc FindRegionPath(FindRegionPathRequest) returns (FindRegionPathResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/find-region-path"
+      body: "*"
+    };
+  }
+}
+
+enum RoadType {
+  MOTORWAY = 0;
+  TRUNK = 1;
+  PRIMARY = 2;
+  SECONDARY = 3;
+}
+
+message BorderCrossing {
+  string from_region = 1;
+  string to_region = 2;
+  RoadType road_type = 3;
+  common_types.Coordinate location = 4;
+  int64 osm_id = 5;
+}
+
+message BorderCrossingSimpleConfig {
+  repeated RoadType road_type_order = 1;
+
+  // The road_type_delta defines the distance in meters between different
+  // road types for which they are regarded as equally distant from the 
+  // line string for finding crossings.
+  // This means that all roads within this distance are sorted based on the
+  // provided road type order
+  // If 0 we use 10000 meters
+  double road_type_delta = 2;
+
+  // The drop distance defines the distance in meters between different
+  // road types for which a crossing of a road_type lower in the order will
+  // be discarded.
+  // Typically you would set this to 0.1 times the road_type delta.
+  // If not set, this will default to 0.1 times the road_type_delta.
+  double drop_distance = 3;
+}
+
+message BorderCrossingDefinition {
+  double max_border_distance = 1;           // If 0 This is the fallback (furtherst away); This value is in meters
+  repeated RoadType road_type_order = 2;
+
+  // The road_type_delta defines the distance in meters between different
+  // road types for which they are regarded as equally distant from the 
+  // line string for finding crossings.
+  // This means that all roads within this distance are sorted based on the
+  // provided road type order
+  // If 0 we use the actual border distance
+  double road_type_delta = 3;
+
+  // The drop distance defines the distance in meters between different
+  // road types for which a crossing of a road_type lower in the order will
+  // be discarded.
+  // Typically you would set this to 0.1 times the road_type delta.
+  // If not set, this will default to 0.1 times the road_type_delta.
+  double drop_distance = 4;
+}
+
+message BorderCrossingAdvancedConfig {
+    repeated BorderCrossingDefinition definitions = 1;
+}
+
+
+message SearchPointRequest {
+  common_types.Coordinate location = 1;
+  bool include_extended = 2;
+}
+
+message SearchPointResponse {
+  repeated string core_regions = 1;
+  repeated string extended_regions = 2;
+}
+
+message SearchBoxRequest {
+  common_types.BoundingBox box = 1;
+  bool include_extended = 2;
+}
+
+message SearchBoxResponse {
+  repeated string core_regions = 1;
+  repeated string extended_regions = 2;
+}
+
+message SearchRadiusRequest {
+  common_types.Coordinate location = 1;
+  double radius_km = 2;
+  bool include_extended = 3;
+}
+
+message SearchRadiusResponse {
+  repeated string core_regions = 1;
+  repeated string extended_regions = 2;
+}
+
+message FindCrossingLocationsRequest {
+    string from_region = 1;
+    string to_region = 2;
+    common_types.Coordinate from_location = 3;
+    common_types.Coordinate to_location = 4;
+    //repeated RoadType road_type_order = 5;          // Default order is MOTORWAY, TRUNK, PRIMARY, SECONDARY
+    //int32 limit = 6;                                // Default = 3
+    //double road_type_delta = 7;                    // Default = 10Km
+    oneof config_oneof {
+        BorderCrossingSimpleConfig simple_config = 5;
+        BorderCrossingAdvancedConfig advanced_config = 6;
+    }
+    int32 limit = 7;
+}
+
+message FindCrossingLocationsResponse {
+    repeated BorderCrossing crossings = 1;
+}
+
+message FindRegionPathRequest {
+  string from_region = 1;
+  string to_region = 2;
+}
+
+message FindRegionPathResponse {
+  repeated string path = 1;
+}

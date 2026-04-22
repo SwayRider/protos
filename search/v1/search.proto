@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package search.v1;
+
+option go_package = "github.com/swayrider/protos/search/v1;searchv1";
+
+import "google/api/annotations.proto";
+import "common_types/geo/geo.proto";
+
+service SearchService {
+  rpc Search(SearchRequest) returns (SearchResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/search/search"
+      body: "*"
+    };
+  }
+
+  rpc ReverseGeocode(ReverseGeocodeRequest) returns (ReverseGeocodeResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/search/reverse"
+      body: "*"
+    };
+  }
+}
+
+message SearchRequest {
+  string text = 1;
+  common_types.BoundingBox viewport = 2;
+  optional common_types.Coordinate focus_point = 3;
+  optional int32 size = 4;
+  optional string language = 5;
+}
+
+message SearchResponse {
+  repeated Result results = 1;
+}
+
+message ReverseGeocodeRequest {
+  common_types.Coordinate point = 1;
+  optional int32 size = 2;
+  optional string language = 3;
+}
+
+message ReverseGeocodeResponse {
+  repeated Result results = 1;
+}
+
+message Result {
+  string label = 1;
+  string locality = 2;
+  string region = 3;
+  string country = 4;
+  double confidence = 5;
+  string layer = 6;
+  double lat = 7;
+  double lon = 8;
+  string street = 9;
+  string housenumber = 10;
+  string id = 11;
+  string localadmin = 12;
+  string country_code = 13;
+  string name = 14;
+}

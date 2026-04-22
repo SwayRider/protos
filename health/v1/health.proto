@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package health.v1;
+
+option go_package = "github.com/swayrider/protos/health/v1;healthv1";
+
+import "google/api/annotations.proto";
+
+service HealthService {
+  rpc Ping(PingRequest) returns (PingResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/health/ping"
+    };
+  }
+
+  rpc Check(HealthRequest) returns (HealthResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/health"
+    };
+  }
+}
+
+message PingRequest {}
+message PingResponse {}
+
+message HealthRequest {
+  string component = 1;         // Welke componen ("" voor gehele service)
+}
+
+message HealthResponse {
+  enum ServiceStatus {
+    UNKNOWN = 0;    // Unknown component
+    UP = 1;         // Up and running
+    DOWN = 2;       // Not running
+  }
+  ServiceStatus status = 1;
+}
