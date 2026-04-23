@@ -46,33 +46,34 @@ go install github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2@latest
 Use the provided Makefile:
 
 ```bash
-make gen
+make
 ```
 
 Or run `protoc` directly:
 
 ```bash
 protoc -I . -I third_party/googleapis \
-  --go_out=./gen/go \
-  --go-grpc_out=./gen/go \
-  --grpc-gateway_out=./gen/go \
+  -I /usr/local/include \
+  --go_out=paths=source_relative:. \
+  --go-grpc_out=paths=source_relative:. \
+  --grpc-gateway_out=paths=source_relative:. \
   auth/v1/auth.proto
 ```
 
-The generated code will be placed in `./gen/go`.
+Generated Go files are placed next to their `.proto` source files (e.g. `auth/v1/auth.pb.go`).
 Your Go services can then import the generated packages like this:
 
 To be added to go.mod:
 ```go
-require hevanto-it.com/swayrider/protos v0.0.0
+require github.com/swayrider/protos v0.0.0
 
-replace hevanto-it.com/swayrider/protos => ../protos/gen/go
+replace github.com/swayrider/protos => ../protos
 ```
 
 And then in your code:
 
 ```go
-import authv1 "hevanto-it.com/swayrider/protos/auth/v1"
+import authv1 "github.com/swayrider/protos/auth/v1"
 ```
 
 ## 📜 OpenAPI
