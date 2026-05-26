@@ -2069,6 +2069,286 @@ func (x *ListServiceClientsResponse) GetNumClients() int32 {
 	return 0
 }
 
+type InviteUserRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InviteUserRequest) Reset() {
+	*x = InviteUserRequest{}
+	mi := &file_auth_v1_auth_proto_msgTypes[40]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InviteUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InviteUserRequest) ProtoMessage() {}
+
+func (x *InviteUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[40]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InviteUserRequest.ProtoReflect.Descriptor instead.
+func (*InviteUserRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{40}
+}
+
+func (x *InviteUserRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+type InviteUserResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *InviteUserResponse) Reset() {
+	*x = InviteUserResponse{}
+	mi := &file_auth_v1_auth_proto_msgTypes[41]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *InviteUserResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*InviteUserResponse) ProtoMessage() {}
+
+func (x *InviteUserResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[41]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use InviteUserResponse.ProtoReflect.Descriptor instead.
+func (*InviteUserResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{41}
+}
+
+func (x *InviteUserResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type RevokeInviteRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Email         string                 `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeInviteRequest) Reset() {
+	*x = RevokeInviteRequest{}
+	mi := &file_auth_v1_auth_proto_msgTypes[42]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeInviteRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeInviteRequest) ProtoMessage() {}
+
+func (x *RevokeInviteRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[42]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeInviteRequest.ProtoReflect.Descriptor instead.
+func (*RevokeInviteRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{42}
+}
+
+func (x *RevokeInviteRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+type RevokeInviteResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Message       string                 `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RevokeInviteResponse) Reset() {
+	*x = RevokeInviteResponse{}
+	mi := &file_auth_v1_auth_proto_msgTypes[43]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RevokeInviteResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RevokeInviteResponse) ProtoMessage() {}
+
+func (x *RevokeInviteResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[43]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RevokeInviteResponse.ProtoReflect.Descriptor instead.
+func (*RevokeInviteResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{43}
+}
+
+func (x *RevokeInviteResponse) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
+type ListInvitesRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Page          int32                  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
+	PageSize      int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListInvitesRequest) Reset() {
+	*x = ListInvitesRequest{}
+	mi := &file_auth_v1_auth_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListInvitesRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInvitesRequest) ProtoMessage() {}
+
+func (x *ListInvitesRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInvitesRequest.ProtoReflect.Descriptor instead.
+func (*ListInvitesRequest) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{44}
+}
+
+func (x *ListInvitesRequest) GetPage() int32 {
+	if x != nil {
+		return x.Page
+	}
+	return 0
+}
+
+func (x *ListInvitesRequest) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type ListInvitesResponse struct {
+	state         protoimpl.MessageState        `protogen:"open.v1"`
+	Invites       []*ListInvitesResponse_Invite `protobuf:"bytes,1,rep,name=invites,proto3" json:"invites,omitempty"`
+	NumInvites    int32                         `protobuf:"varint,2,opt,name=num_invites,json=numInvites,proto3" json:"num_invites,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListInvitesResponse) Reset() {
+	*x = ListInvitesResponse{}
+	mi := &file_auth_v1_auth_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListInvitesResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInvitesResponse) ProtoMessage() {}
+
+func (x *ListInvitesResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInvitesResponse.ProtoReflect.Descriptor instead.
+func (*ListInvitesResponse) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *ListInvitesResponse) GetInvites() []*ListInvitesResponse_Invite {
+	if x != nil {
+		return x.Invites
+	}
+	return nil
+}
+
+func (x *ListInvitesResponse) GetNumInvites() int32 {
+	if x != nil {
+		return x.NumInvites
+	}
+	return 0
+}
+
 type ListServiceClientsResponse_Client struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ClientId      string                 `protobuf:"bytes,1,opt,name=client_id,json=clientId,proto3" json:"client_id,omitempty"`
@@ -2081,7 +2361,7 @@ type ListServiceClientsResponse_Client struct {
 
 func (x *ListServiceClientsResponse_Client) Reset() {
 	*x = ListServiceClientsResponse_Client{}
-	mi := &file_auth_v1_auth_proto_msgTypes[40]
+	mi := &file_auth_v1_auth_proto_msgTypes[46]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -2093,7 +2373,7 @@ func (x *ListServiceClientsResponse_Client) String() string {
 func (*ListServiceClientsResponse_Client) ProtoMessage() {}
 
 func (x *ListServiceClientsResponse_Client) ProtoReflect() protoreflect.Message {
-	mi := &file_auth_v1_auth_proto_msgTypes[40]
+	mi := &file_auth_v1_auth_proto_msgTypes[46]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2133,6 +2413,66 @@ func (x *ListServiceClientsResponse_Client) GetDescription() string {
 func (x *ListServiceClientsResponse_Client) GetScopes() []string {
 	if x != nil {
 		return x.Scopes
+	}
+	return nil
+}
+
+type ListInvitesResponse_Invite struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
+	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ListInvitesResponse_Invite) Reset() {
+	*x = ListInvitesResponse_Invite{}
+	mi := &file_auth_v1_auth_proto_msgTypes[47]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ListInvitesResponse_Invite) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ListInvitesResponse_Invite) ProtoMessage() {}
+
+func (x *ListInvitesResponse_Invite) ProtoReflect() protoreflect.Message {
+	mi := &file_auth_v1_auth_proto_msgTypes[47]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ListInvitesResponse_Invite.ProtoReflect.Descriptor instead.
+func (*ListInvitesResponse_Invite) Descriptor() ([]byte, []int) {
+	return file_auth_v1_auth_proto_rawDescGZIP(), []int{45, 0}
+}
+
+func (x *ListInvitesResponse_Invite) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *ListInvitesResponse_Invite) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *ListInvitesResponse_Invite) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
 	}
 	return nil
 }
@@ -2266,7 +2606,27 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\tclient_id\x18\x01 \x01(\tR\bclientId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
 	"\vdescription\x18\x03 \x01(\tR\vdescription\x12\x16\n" +
-	"\x06scopes\x18\x04 \x03(\tR\x06scopes2\x97\x13\n" +
+	"\x06scopes\x18\x04 \x03(\tR\x06scopes\")\n" +
+	"\x11InviteUserRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\".\n" +
+	"\x12InviteUserResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"+\n" +
+	"\x13RevokeInviteRequest\x12\x14\n" +
+	"\x05email\x18\x01 \x01(\tR\x05email\"0\n" +
+	"\x14RevokeInviteResponse\x12\x18\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"E\n" +
+	"\x12ListInvitesRequest\x12\x12\n" +
+	"\x04page\x18\x01 \x01(\x05R\x04page\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\"\xe0\x01\n" +
+	"\x13ListInvitesResponse\x12=\n" +
+	"\ainvites\x18\x01 \x03(\v2#.auth.v1.ListInvitesResponse.InviteR\ainvites\x12\x1f\n" +
+	"\vnum_invites\x18\x02 \x01(\x05R\n" +
+	"numInvites\x1ai\n" +
+	"\x06Invite\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
+	"\x05email\x18\x02 \x01(\tR\x05email\x129\n" +
+	"\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt2\xff\x15\n" +
 	"\vAuthService\x12\x97\x01\n" +
 	"\x15CheckPasswordStrength\x12%.auth.v1.CheckPasswordStrengthRequest\x1a&.auth.v1.CheckPasswordStrengthResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/auth/check-password-strength\x12n\n" +
 	"\vCreateAdmin\x12\x1b.auth.v1.CreateAdminRequest\x1a\x1c.auth.v1.CreateAdminResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/create-admin\x12a\n" +
@@ -2288,7 +2648,11 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"PublicKeys\x12\x1a.auth.v1.PublicKeysRequest\x1a\x1b.auth.v1.PublicKeysResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v1/auth/public-keys\x12\x8f\x01\n" +
 	"\x13CreateServiceClient\x12#.auth.v1.CreateServiceClientRequest\x1a$.auth.v1.CreateServiceClientResponse\"-\x82\xd3\xe4\x93\x02':\x01*\"\"/api/v1/auth/create-service-client\x12\x8f\x01\n" +
 	"\x13DeleteServiceClient\x12#.auth.v1.DeleteServiceClientRequest\x1a$.auth.v1.DeleteServiceClientResponse\"-\x82\xd3\xe4\x93\x02':\x01*\"\"/api/v1/auth/delete-service-client\x12\x88\x01\n" +
-	"\x12ListServiceClients\x12\".auth.v1.ListServiceClientsRequest\x1a#.auth.v1.ListServiceClientsResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/auth/list-service-clientsB,Z*github.com/swayrider/protos/auth/v1;authv1b\x06proto3"
+	"\x12ListServiceClients\x12\".auth.v1.ListServiceClientsRequest\x1a#.auth.v1.ListServiceClientsResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/auth/list-service-clients\x12s\n" +
+	"\n" +
+	"InviteUser\x12\x1a.auth.v1.InviteUserRequest\x1a\x1b.auth.v1.InviteUserResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/auth/internal/invite-user\x12{\n" +
+	"\fRevokeInvite\x12\x1c.auth.v1.RevokeInviteRequest\x1a\x1d.auth.v1.RevokeInviteResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/auth/internal/revoke-invite\x12t\n" +
+	"\vListInvites\x12\x1b.auth.v1.ListInvitesRequest\x1a\x1c.auth.v1.ListInvitesResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/api/v1/auth/internal/list-invitesB,Z*github.com/swayrider/protos/auth/v1;authv1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once
@@ -2302,7 +2666,7 @@ func file_auth_v1_auth_proto_rawDescGZIP() []byte {
 	return file_auth_v1_auth_proto_rawDescData
 }
 
-var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 41)
+var file_auth_v1_auth_proto_msgTypes = make([]protoimpl.MessageInfo, 48)
 var file_auth_v1_auth_proto_goTypes = []any{
 	(*CheckPasswordStrengthRequest)(nil),      // 0: auth.v1.CheckPasswordStrengthRequest
 	(*CheckPasswordStrengthResponse)(nil),     // 1: auth.v1.CheckPasswordStrengthResponse
@@ -2344,58 +2708,73 @@ var file_auth_v1_auth_proto_goTypes = []any{
 	(*DeleteServiceClientResponse)(nil),       // 37: auth.v1.DeleteServiceClientResponse
 	(*ListServiceClientsRequest)(nil),         // 38: auth.v1.ListServiceClientsRequest
 	(*ListServiceClientsResponse)(nil),        // 39: auth.v1.ListServiceClientsResponse
-	(*ListServiceClientsResponse_Client)(nil), // 40: auth.v1.ListServiceClientsResponse.Client
-	(*timestamppb.Timestamp)(nil),             // 41: google.protobuf.Timestamp
+	(*InviteUserRequest)(nil),                 // 40: auth.v1.InviteUserRequest
+	(*InviteUserResponse)(nil),                // 41: auth.v1.InviteUserResponse
+	(*RevokeInviteRequest)(nil),               // 42: auth.v1.RevokeInviteRequest
+	(*RevokeInviteResponse)(nil),              // 43: auth.v1.RevokeInviteResponse
+	(*ListInvitesRequest)(nil),                // 44: auth.v1.ListInvitesRequest
+	(*ListInvitesResponse)(nil),               // 45: auth.v1.ListInvitesResponse
+	(*ListServiceClientsResponse_Client)(nil), // 46: auth.v1.ListServiceClientsResponse.Client
+	(*ListInvitesResponse_Invite)(nil),        // 47: auth.v1.ListInvitesResponse.Invite
+	(*timestamppb.Timestamp)(nil),             // 48: google.protobuf.Timestamp
 }
 var file_auth_v1_auth_proto_depIdxs = []int32{
-	41, // 0: auth.v1.GetTokenResponse.valid_until:type_name -> google.protobuf.Timestamp
-	41, // 1: auth.v1.CreateVerificationTokenResponse.valid_until:type_name -> google.protobuf.Timestamp
-	40, // 2: auth.v1.ListServiceClientsResponse.clients:type_name -> auth.v1.ListServiceClientsResponse.Client
-	0,  // 3: auth.v1.AuthService.CheckPasswordStrength:input_type -> auth.v1.CheckPasswordStrengthRequest
-	2,  // 4: auth.v1.AuthService.CreateAdmin:input_type -> auth.v1.CreateAdminRequest
-	4,  // 5: auth.v1.AuthService.Register:input_type -> auth.v1.RegisterRequest
-	6,  // 6: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
-	10, // 7: auth.v1.AuthService.Login:input_type -> auth.v1.LoginRequest
-	12, // 8: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
-	8,  // 9: auth.v1.AuthService.GetToken:input_type -> auth.v1.GetTokenRequest
-	14, // 10: auth.v1.AuthService.Refresh:input_type -> auth.v1.RefreshRequest
-	16, // 11: auth.v1.AuthService.ChangePassword:input_type -> auth.v1.ChangePasswordRequest
-	18, // 12: auth.v1.AuthService.ChangeAccountType:input_type -> auth.v1.ChangeAccountTypeRequest
-	20, // 13: auth.v1.AuthService.WhoAmI:input_type -> auth.v1.WhoAmIRequest
-	22, // 14: auth.v1.AuthService.WhoIs:input_type -> auth.v1.WhoIsRequest
-	24, // 15: auth.v1.AuthService.CreateVerificationToken:input_type -> auth.v1.CreateVerificationTokenRequest
-	26, // 16: auth.v1.AuthService.CheckVerificationToken:input_type -> auth.v1.CheckVerificationTokenRequest
-	28, // 17: auth.v1.AuthService.RequestPasswordReset:input_type -> auth.v1.RequestPasswordResetRequest
-	30, // 18: auth.v1.AuthService.ResetPassword:input_type -> auth.v1.ResetPasswordRequest
-	32, // 19: auth.v1.AuthService.PublicKeys:input_type -> auth.v1.PublicKeysRequest
-	34, // 20: auth.v1.AuthService.CreateServiceClient:input_type -> auth.v1.CreateServiceClientRequest
-	36, // 21: auth.v1.AuthService.DeleteServiceClient:input_type -> auth.v1.DeleteServiceClientRequest
-	38, // 22: auth.v1.AuthService.ListServiceClients:input_type -> auth.v1.ListServiceClientsRequest
-	1,  // 23: auth.v1.AuthService.CheckPasswordStrength:output_type -> auth.v1.CheckPasswordStrengthResponse
-	3,  // 24: auth.v1.AuthService.CreateAdmin:output_type -> auth.v1.CreateAdminResponse
-	5,  // 25: auth.v1.AuthService.Register:output_type -> auth.v1.RegisterResponse
-	7,  // 26: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
-	11, // 27: auth.v1.AuthService.Login:output_type -> auth.v1.LoginResponse
-	13, // 28: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
-	9,  // 29: auth.v1.AuthService.GetToken:output_type -> auth.v1.GetTokenResponse
-	15, // 30: auth.v1.AuthService.Refresh:output_type -> auth.v1.RefreshResponse
-	17, // 31: auth.v1.AuthService.ChangePassword:output_type -> auth.v1.ChangePasswordResponse
-	19, // 32: auth.v1.AuthService.ChangeAccountType:output_type -> auth.v1.ChangeAccountTypeResponse
-	21, // 33: auth.v1.AuthService.WhoAmI:output_type -> auth.v1.WhoAmIResponse
-	23, // 34: auth.v1.AuthService.WhoIs:output_type -> auth.v1.WhoIsResponse
-	25, // 35: auth.v1.AuthService.CreateVerificationToken:output_type -> auth.v1.CreateVerificationTokenResponse
-	27, // 36: auth.v1.AuthService.CheckVerificationToken:output_type -> auth.v1.CheckVerificationTokenResponse
-	29, // 37: auth.v1.AuthService.RequestPasswordReset:output_type -> auth.v1.RequestPasswordResetResponse
-	31, // 38: auth.v1.AuthService.ResetPassword:output_type -> auth.v1.ResetPasswordResponse
-	33, // 39: auth.v1.AuthService.PublicKeys:output_type -> auth.v1.PublicKeysResponse
-	35, // 40: auth.v1.AuthService.CreateServiceClient:output_type -> auth.v1.CreateServiceClientResponse
-	37, // 41: auth.v1.AuthService.DeleteServiceClient:output_type -> auth.v1.DeleteServiceClientResponse
-	39, // 42: auth.v1.AuthService.ListServiceClients:output_type -> auth.v1.ListServiceClientsResponse
-	23, // [23:43] is the sub-list for method output_type
-	3,  // [3:23] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+	48, // 0: auth.v1.GetTokenResponse.valid_until:type_name -> google.protobuf.Timestamp
+	48, // 1: auth.v1.CreateVerificationTokenResponse.valid_until:type_name -> google.protobuf.Timestamp
+	46, // 2: auth.v1.ListServiceClientsResponse.clients:type_name -> auth.v1.ListServiceClientsResponse.Client
+	47, // 3: auth.v1.ListInvitesResponse.invites:type_name -> auth.v1.ListInvitesResponse.Invite
+	48, // 4: auth.v1.ListInvitesResponse.Invite.created_at:type_name -> google.protobuf.Timestamp
+	0,  // 5: auth.v1.AuthService.CheckPasswordStrength:input_type -> auth.v1.CheckPasswordStrengthRequest
+	2,  // 6: auth.v1.AuthService.CreateAdmin:input_type -> auth.v1.CreateAdminRequest
+	4,  // 7: auth.v1.AuthService.Register:input_type -> auth.v1.RegisterRequest
+	6,  // 8: auth.v1.AuthService.VerifyEmail:input_type -> auth.v1.VerifyEmailRequest
+	10, // 9: auth.v1.AuthService.Login:input_type -> auth.v1.LoginRequest
+	12, // 10: auth.v1.AuthService.Logout:input_type -> auth.v1.LogoutRequest
+	8,  // 11: auth.v1.AuthService.GetToken:input_type -> auth.v1.GetTokenRequest
+	14, // 12: auth.v1.AuthService.Refresh:input_type -> auth.v1.RefreshRequest
+	16, // 13: auth.v1.AuthService.ChangePassword:input_type -> auth.v1.ChangePasswordRequest
+	18, // 14: auth.v1.AuthService.ChangeAccountType:input_type -> auth.v1.ChangeAccountTypeRequest
+	20, // 15: auth.v1.AuthService.WhoAmI:input_type -> auth.v1.WhoAmIRequest
+	22, // 16: auth.v1.AuthService.WhoIs:input_type -> auth.v1.WhoIsRequest
+	24, // 17: auth.v1.AuthService.CreateVerificationToken:input_type -> auth.v1.CreateVerificationTokenRequest
+	26, // 18: auth.v1.AuthService.CheckVerificationToken:input_type -> auth.v1.CheckVerificationTokenRequest
+	28, // 19: auth.v1.AuthService.RequestPasswordReset:input_type -> auth.v1.RequestPasswordResetRequest
+	30, // 20: auth.v1.AuthService.ResetPassword:input_type -> auth.v1.ResetPasswordRequest
+	32, // 21: auth.v1.AuthService.PublicKeys:input_type -> auth.v1.PublicKeysRequest
+	34, // 22: auth.v1.AuthService.CreateServiceClient:input_type -> auth.v1.CreateServiceClientRequest
+	36, // 23: auth.v1.AuthService.DeleteServiceClient:input_type -> auth.v1.DeleteServiceClientRequest
+	38, // 24: auth.v1.AuthService.ListServiceClients:input_type -> auth.v1.ListServiceClientsRequest
+	40, // 25: auth.v1.AuthService.InviteUser:input_type -> auth.v1.InviteUserRequest
+	42, // 26: auth.v1.AuthService.RevokeInvite:input_type -> auth.v1.RevokeInviteRequest
+	44, // 27: auth.v1.AuthService.ListInvites:input_type -> auth.v1.ListInvitesRequest
+	1,  // 28: auth.v1.AuthService.CheckPasswordStrength:output_type -> auth.v1.CheckPasswordStrengthResponse
+	3,  // 29: auth.v1.AuthService.CreateAdmin:output_type -> auth.v1.CreateAdminResponse
+	5,  // 30: auth.v1.AuthService.Register:output_type -> auth.v1.RegisterResponse
+	7,  // 31: auth.v1.AuthService.VerifyEmail:output_type -> auth.v1.VerifyEmailResponse
+	11, // 32: auth.v1.AuthService.Login:output_type -> auth.v1.LoginResponse
+	13, // 33: auth.v1.AuthService.Logout:output_type -> auth.v1.LogoutResponse
+	9,  // 34: auth.v1.AuthService.GetToken:output_type -> auth.v1.GetTokenResponse
+	15, // 35: auth.v1.AuthService.Refresh:output_type -> auth.v1.RefreshResponse
+	17, // 36: auth.v1.AuthService.ChangePassword:output_type -> auth.v1.ChangePasswordResponse
+	19, // 37: auth.v1.AuthService.ChangeAccountType:output_type -> auth.v1.ChangeAccountTypeResponse
+	21, // 38: auth.v1.AuthService.WhoAmI:output_type -> auth.v1.WhoAmIResponse
+	23, // 39: auth.v1.AuthService.WhoIs:output_type -> auth.v1.WhoIsResponse
+	25, // 40: auth.v1.AuthService.CreateVerificationToken:output_type -> auth.v1.CreateVerificationTokenResponse
+	27, // 41: auth.v1.AuthService.CheckVerificationToken:output_type -> auth.v1.CheckVerificationTokenResponse
+	29, // 42: auth.v1.AuthService.RequestPasswordReset:output_type -> auth.v1.RequestPasswordResetResponse
+	31, // 43: auth.v1.AuthService.ResetPassword:output_type -> auth.v1.ResetPasswordResponse
+	33, // 44: auth.v1.AuthService.PublicKeys:output_type -> auth.v1.PublicKeysResponse
+	35, // 45: auth.v1.AuthService.CreateServiceClient:output_type -> auth.v1.CreateServiceClientResponse
+	37, // 46: auth.v1.AuthService.DeleteServiceClient:output_type -> auth.v1.DeleteServiceClientResponse
+	39, // 47: auth.v1.AuthService.ListServiceClients:output_type -> auth.v1.ListServiceClientsResponse
+	41, // 48: auth.v1.AuthService.InviteUser:output_type -> auth.v1.InviteUserResponse
+	43, // 49: auth.v1.AuthService.RevokeInvite:output_type -> auth.v1.RevokeInviteResponse
+	45, // 50: auth.v1.AuthService.ListInvites:output_type -> auth.v1.ListInvitesResponse
+	28, // [28:51] is the sub-list for method output_type
+	5,  // [5:28] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_auth_v1_auth_proto_init() }
@@ -2413,7 +2792,7 @@ func file_auth_v1_auth_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_auth_v1_auth_proto_rawDesc), len(file_auth_v1_auth_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   41,
+			NumMessages:   48,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

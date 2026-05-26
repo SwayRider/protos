@@ -147,6 +147,26 @@ service AuthService {
       get: "/api/v1/auth/list-service-clients"
     };
   }
+
+  rpc InviteUser(InviteUserRequest) returns (InviteUserResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/internal/invite-user"
+      body: "*"
+    };
+  }
+
+  rpc RevokeInvite(RevokeInviteRequest) returns (RevokeInviteResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/internal/revoke-invite"
+      body: "*"
+    };
+  }
+
+  rpc ListInvites(ListInvitesRequest) returns (ListInvitesResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/internal/list-invites"
+    };
+  }
 }
 
 message CheckPasswordStrengthRequest {
@@ -345,6 +365,37 @@ message ListServiceClientsResponse {
   }
 
   repeated Client clients = 1;
-  int32 num_clients = 2; 
+  int32 num_clients = 2;
+}
+
+message InviteUserRequest {
+  string email = 1;
+}
+
+message InviteUserResponse {
+  string message = 1;
+}
+
+message RevokeInviteRequest {
+  string email = 1;
+}
+
+message RevokeInviteResponse {
+  string message = 1;
+}
+
+message ListInvitesRequest {
+  int32 page      = 1;
+  int32 page_size = 2;
+}
+
+message ListInvitesResponse {
+  message Invite {
+    string id    = 1;
+    string email = 2;
+    google.protobuf.Timestamp created_at = 3;
+  }
+  repeated Invite invites     = 1;
+  int32           num_invites = 2;
 }
 

@@ -39,6 +39,9 @@ const (
 	AuthService_CreateServiceClient_FullMethodName     = "/auth.v1.AuthService/CreateServiceClient"
 	AuthService_DeleteServiceClient_FullMethodName     = "/auth.v1.AuthService/DeleteServiceClient"
 	AuthService_ListServiceClients_FullMethodName      = "/auth.v1.AuthService/ListServiceClients"
+	AuthService_InviteUser_FullMethodName              = "/auth.v1.AuthService/InviteUser"
+	AuthService_RevokeInvite_FullMethodName            = "/auth.v1.AuthService/RevokeInvite"
+	AuthService_ListInvites_FullMethodName             = "/auth.v1.AuthService/ListInvites"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -69,6 +72,9 @@ type AuthServiceClient interface {
 	CreateServiceClient(ctx context.Context, in *CreateServiceClientRequest, opts ...grpc.CallOption) (*CreateServiceClientResponse, error)
 	DeleteServiceClient(ctx context.Context, in *DeleteServiceClientRequest, opts ...grpc.CallOption) (*DeleteServiceClientResponse, error)
 	ListServiceClients(ctx context.Context, in *ListServiceClientsRequest, opts ...grpc.CallOption) (*ListServiceClientsResponse, error)
+	InviteUser(ctx context.Context, in *InviteUserRequest, opts ...grpc.CallOption) (*InviteUserResponse, error)
+	RevokeInvite(ctx context.Context, in *RevokeInviteRequest, opts ...grpc.CallOption) (*RevokeInviteResponse, error)
+	ListInvites(ctx context.Context, in *ListInvitesRequest, opts ...grpc.CallOption) (*ListInvitesResponse, error)
 }
 
 type authServiceClient struct {
@@ -279,6 +285,36 @@ func (c *authServiceClient) ListServiceClients(ctx context.Context, in *ListServ
 	return out, nil
 }
 
+func (c *authServiceClient) InviteUser(ctx context.Context, in *InviteUserRequest, opts ...grpc.CallOption) (*InviteUserResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(InviteUserResponse)
+	err := c.cc.Invoke(ctx, AuthService_InviteUser_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) RevokeInvite(ctx context.Context, in *RevokeInviteRequest, opts ...grpc.CallOption) (*RevokeInviteResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RevokeInviteResponse)
+	err := c.cc.Invoke(ctx, AuthService_RevokeInvite_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *authServiceClient) ListInvites(ctx context.Context, in *ListInvitesRequest, opts ...grpc.CallOption) (*ListInvitesResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ListInvitesResponse)
+	err := c.cc.Invoke(ctx, AuthService_ListInvites_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -307,6 +343,9 @@ type AuthServiceServer interface {
 	CreateServiceClient(context.Context, *CreateServiceClientRequest) (*CreateServiceClientResponse, error)
 	DeleteServiceClient(context.Context, *DeleteServiceClientRequest) (*DeleteServiceClientResponse, error)
 	ListServiceClients(context.Context, *ListServiceClientsRequest) (*ListServiceClientsResponse, error)
+	InviteUser(context.Context, *InviteUserRequest) (*InviteUserResponse, error)
+	RevokeInvite(context.Context, *RevokeInviteRequest) (*RevokeInviteResponse, error)
+	ListInvites(context.Context, *ListInvitesRequest) (*ListInvitesResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -376,6 +415,15 @@ func (UnimplementedAuthServiceServer) DeleteServiceClient(context.Context, *Dele
 }
 func (UnimplementedAuthServiceServer) ListServiceClients(context.Context, *ListServiceClientsRequest) (*ListServiceClientsResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method ListServiceClients not implemented")
+}
+func (UnimplementedAuthServiceServer) InviteUser(context.Context, *InviteUserRequest) (*InviteUserResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method InviteUser not implemented")
+}
+func (UnimplementedAuthServiceServer) RevokeInvite(context.Context, *RevokeInviteRequest) (*RevokeInviteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RevokeInvite not implemented")
+}
+func (UnimplementedAuthServiceServer) ListInvites(context.Context, *ListInvitesRequest) (*ListInvitesResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method ListInvites not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -758,6 +806,60 @@ func _AuthService_ListServiceClients_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_InviteUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(InviteUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).InviteUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_InviteUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).InviteUser(ctx, req.(*InviteUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_RevokeInvite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RevokeInviteRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).RevokeInvite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_RevokeInvite_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).RevokeInvite(ctx, req.(*RevokeInviteRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AuthService_ListInvites_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListInvitesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).ListInvites(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_ListInvites_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).ListInvites(ctx, req.(*ListInvitesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -844,6 +946,18 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ListServiceClients",
 			Handler:    _AuthService_ListServiceClients_Handler,
+		},
+		{
+			MethodName: "InviteUser",
+			Handler:    _AuthService_InviteUser_Handler,
+		},
+		{
+			MethodName: "RevokeInvite",
+			Handler:    _AuthService_RevokeInvite_Handler,
+		},
+		{
+			MethodName: "ListInvites",
+			Handler:    _AuthService_ListInvites_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
