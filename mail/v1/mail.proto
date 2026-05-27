@@ -9,7 +9,7 @@ import "google/api/annotations.proto";
 service MailService {
   rpc Send(SendRequest) returns (SendResponse) {
     option (google.api.http) = {
-      post: "/api/v1/mail/send"
+      post: "/api/v1/mail/admin/send"
       body: "*"
     };
   }
@@ -23,7 +23,7 @@ service MailService {
 
   rpc SendTemplate(SendTemplateRequest) returns (SendTemplateResponse) {
     option (google.api.http) = {
-      post: "/api/v1/mail/send-template"
+      post: "/api/v1/mail/admin/send-template"
       body: "*"
     };
   }

@@ -330,11 +330,11 @@ const file_mail_v1_mail_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"0\n" +
 	"\x14SendTemplateResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xbe\x03\n" +
-	"\vMailService\x12Q\n" +
-	"\x04Send\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"\x1c\x82\xd3\xe4\x93\x02\x16:\x01*\"\x11/api/v1/mail/send\x12b\n" +
-	"\fSendInternal\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/mail/internal/send\x12r\n" +
-	"\fSendTemplate\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/mail/send-template\x12\x83\x01\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2\xca\x03\n" +
+	"\vMailService\x12W\n" +
+	"\x04Send\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/mail/admin/send\x12b\n" +
+	"\fSendInternal\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/mail/internal/send\x12x\n" +
+	"\fSendTemplate\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/mail/admin/send-template\x12\x83\x01\n" +
 	"\x14SendTemplateInternal\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/mail/internal/send-templateB,Z*github.com/swayrider/protos/mail/v1;mailv1b\x06proto3"
 
 var (
