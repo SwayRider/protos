@@ -2626,33 +2626,33 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x129\n" +
 	"\n" +
-	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt2\xff\x15\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt2\xf6\x15\n" +
 	"\vAuthService\x12\x97\x01\n" +
-	"\x15CheckPasswordStrength\x12%.auth.v1.CheckPasswordStrengthRequest\x1a&.auth.v1.CheckPasswordStrengthResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/auth/check-password-strength\x12n\n" +
-	"\vCreateAdmin\x12\x1b.auth.v1.CreateAdminRequest\x1a\x1c.auth.v1.CreateAdminResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/create-admin\x12a\n" +
+	"\x15CheckPasswordStrength\x12%.auth.v1.CheckPasswordStrengthRequest\x1a&.auth.v1.CheckPasswordStrengthResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/auth/check-password-strength\x12t\n" +
+	"\vCreateAdmin\x12\x1b.auth.v1.CreateAdminRequest\x1a\x1c.auth.v1.CreateAdminResponse\"*\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/auth/admin/create-admin\x12a\n" +
 	"\bRegister\x12\x18.auth.v1.RegisterRequest\x1a\x19.auth.v1.RegisterResponse\" \x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/api/v1/auth/register\x12n\n" +
 	"\vVerifyEmail\x12\x1b.auth.v1.VerifyEmailRequest\x1a\x1c.auth.v1.VerifyEmailResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/auth/verify-email\x12U\n" +
 	"\x05Login\x12\x15.auth.v1.LoginRequest\x1a\x16.auth.v1.LoginResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/login\x12Y\n" +
 	"\x06Logout\x12\x16.auth.v1.LogoutRequest\x1a\x17.auth.v1.LogoutResponse\"\x1e\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/api/v1/auth/logout\x12^\n" +
 	"\bGetToken\x12\x18.auth.v1.GetTokenRequest\x1a\x19.auth.v1.GetTokenResponse\"\x1d\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/auth/token\x12]\n" +
 	"\aRefresh\x12\x17.auth.v1.RefreshRequest\x1a\x18.auth.v1.RefreshResponse\"\x1f\x82\xd3\xe4\x93\x02\x19:\x01*\"\x14/api/v1/auth/refresh\x12z\n" +
-	"\x0eChangePassword\x12\x1e.auth.v1.ChangePasswordRequest\x1a\x1f.auth.v1.ChangePasswordResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/auth/change-password\x12\x90\x01\n" +
-	"\x11ChangeAccountType\x12!.auth.v1.ChangeAccountTypeRequest\x1a\".auth.v1.ChangeAccountTypeResponse\"4\x82\xd3\xe4\x93\x02.:\x01*\")/api/v1/auth/internal/change-account-type\x12V\n" +
-	"\x06WhoAmI\x12\x16.auth.v1.WhoAmIRequest\x1a\x17.auth.v1.WhoAmIResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/api/v1/auth/whoami\x12^\n" +
-	"\x05WhoIs\x12\x15.auth.v1.WhoIsRequest\x1a\x16.auth.v1.WhoIsResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/api/v1/auth/internal/whois\x12\xa5\x01\n" +
-	"\x17CreateVerificationToken\x12'.auth.v1.CreateVerificationTokenRequest\x1a(.auth.v1.CreateVerificationTokenResponse\"7\x82\xd3\xe4\x93\x021\x12//api/v1/auth/internal/create-verification-token\x12\xa4\x01\n" +
-	"\x16CheckVerificationToken\x12&.auth.v1.CheckVerificationTokenRequest\x1a'.auth.v1.CheckVerificationTokenResponse\"9\x82\xd3\xe4\x93\x023:\x01*\"./api/v1/auth/internal/check-verification-token\x12\x93\x01\n" +
+	"\x0eChangePassword\x12\x1e.auth.v1.ChangePasswordRequest\x1a\x1f.auth.v1.ChangePasswordResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/auth/change-password\x12\x8d\x01\n" +
+	"\x11ChangeAccountType\x12!.auth.v1.ChangeAccountTypeRequest\x1a\".auth.v1.ChangeAccountTypeResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/v1/auth/admin/change-account-type\x12V\n" +
+	"\x06WhoAmI\x12\x16.auth.v1.WhoAmIRequest\x1a\x17.auth.v1.WhoAmIResponse\"\x1b\x82\xd3\xe4\x93\x02\x15\x12\x13/api/v1/auth/whoami\x12[\n" +
+	"\x05WhoIs\x12\x15.auth.v1.WhoIsRequest\x1a\x16.auth.v1.WhoIsResponse\"#\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/api/v1/auth/admin/whois\x12\x9c\x01\n" +
+	"\x17CreateVerificationToken\x12'.auth.v1.CreateVerificationTokenRequest\x1a(.auth.v1.CreateVerificationTokenResponse\".\x82\xd3\xe4\x93\x02(\x12&/api/v1/auth/create-verification-token\x12\x9b\x01\n" +
+	"\x16CheckVerificationToken\x12&.auth.v1.CheckVerificationTokenRequest\x1a'.auth.v1.CheckVerificationTokenResponse\"0\x82\xd3\xe4\x93\x02*:\x01*\"%/api/v1/auth/check-verification-token\x12\x93\x01\n" +
 	"\x14RequestPasswordReset\x12$.auth.v1.RequestPasswordResetRequest\x1a%.auth.v1.RequestPasswordResetResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/auth/request-password-reset\x12v\n" +
 	"\rResetPassword\x12\x1d.auth.v1.ResetPasswordRequest\x1a\x1e.auth.v1.ResetPasswordResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/api/v1/auth/reset-password\x12g\n" +
 	"\n" +
-	"PublicKeys\x12\x1a.auth.v1.PublicKeysRequest\x1a\x1b.auth.v1.PublicKeysResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v1/auth/public-keys\x12\x8f\x01\n" +
-	"\x13CreateServiceClient\x12#.auth.v1.CreateServiceClientRequest\x1a$.auth.v1.CreateServiceClientResponse\"-\x82\xd3\xe4\x93\x02':\x01*\"\"/api/v1/auth/create-service-client\x12\x8f\x01\n" +
-	"\x13DeleteServiceClient\x12#.auth.v1.DeleteServiceClientRequest\x1a$.auth.v1.DeleteServiceClientResponse\"-\x82\xd3\xe4\x93\x02':\x01*\"\"/api/v1/auth/delete-service-client\x12\x88\x01\n" +
-	"\x12ListServiceClients\x12\".auth.v1.ListServiceClientsRequest\x1a#.auth.v1.ListServiceClientsResponse\")\x82\xd3\xe4\x93\x02#\x12!/api/v1/auth/list-service-clients\x12s\n" +
+	"PublicKeys\x12\x1a.auth.v1.PublicKeysRequest\x1a\x1b.auth.v1.PublicKeysResponse\" \x82\xd3\xe4\x93\x02\x1a\x12\x18/api/v1/auth/public-keys\x12\x95\x01\n" +
+	"\x13CreateServiceClient\x12#.auth.v1.CreateServiceClientRequest\x1a$.auth.v1.CreateServiceClientResponse\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/v1/auth/admin/create-service-client\x12\x95\x01\n" +
+	"\x13DeleteServiceClient\x12#.auth.v1.DeleteServiceClientRequest\x1a$.auth.v1.DeleteServiceClientResponse\"3\x82\xd3\xe4\x93\x02-:\x01*\"(/api/v1/auth/admin/delete-service-client\x12\x8e\x01\n" +
+	"\x12ListServiceClients\x12\".auth.v1.ListServiceClientsRequest\x1a#.auth.v1.ListServiceClientsResponse\"/\x82\xd3\xe4\x93\x02)\x12'/api/v1/auth/admin/list-service-clients\x12p\n" +
 	"\n" +
-	"InviteUser\x12\x1a.auth.v1.InviteUserRequest\x1a\x1b.auth.v1.InviteUserResponse\",\x82\xd3\xe4\x93\x02&:\x01*\"!/api/v1/auth/internal/invite-user\x12{\n" +
-	"\fRevokeInvite\x12\x1c.auth.v1.RevokeInviteRequest\x1a\x1d.auth.v1.RevokeInviteResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/auth/internal/revoke-invite\x12t\n" +
-	"\vListInvites\x12\x1b.auth.v1.ListInvitesRequest\x1a\x1c.auth.v1.ListInvitesResponse\"*\x82\xd3\xe4\x93\x02$\x12\"/api/v1/auth/internal/list-invitesB,Z*github.com/swayrider/protos/auth/v1;authv1b\x06proto3"
+	"InviteUser\x12\x1a.auth.v1.InviteUserRequest\x1a\x1b.auth.v1.InviteUserResponse\")\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/auth/admin/invite-user\x12x\n" +
+	"\fRevokeInvite\x12\x1c.auth.v1.RevokeInviteRequest\x1a\x1d.auth.v1.RevokeInviteResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/auth/admin/revoke-invite\x12q\n" +
+	"\vListInvites\x12\x1b.auth.v1.ListInvitesRequest\x1a\x1c.auth.v1.ListInvitesResponse\"'\x82\xd3\xe4\x93\x02!\x12\x1f/api/v1/auth/admin/list-invitesB,Z*github.com/swayrider/protos/auth/v1;authv1b\x06proto3"
 
 var (
 	file_auth_v1_auth_proto_rawDescOnce sync.Once

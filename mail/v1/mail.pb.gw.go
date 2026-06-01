@@ -155,7 +155,7 @@ func RegisterMailServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mail.v1.MailService/Send", runtime.WithHTTPPathPattern("/api/v1/mail/send"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mail.v1.MailService/Send", runtime.WithHTTPPathPattern("/api/v1/mail/admin/send"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -195,7 +195,7 @@ func RegisterMailServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		var stream runtime.ServerTransportStream
 		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mail.v1.MailService/SendTemplate", runtime.WithHTTPPathPattern("/api/v1/mail/send-template"))
+		annotatedContext, err := runtime.AnnotateIncomingContext(ctx, mux, req, "/mail.v1.MailService/SendTemplate", runtime.WithHTTPPathPattern("/api/v1/mail/admin/send-template"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -273,7 +273,7 @@ func RegisterMailServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mail.v1.MailService/Send", runtime.WithHTTPPathPattern("/api/v1/mail/send"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mail.v1.MailService/Send", runtime.WithHTTPPathPattern("/api/v1/mail/admin/send"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -307,7 +307,7 @@ func RegisterMailServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mail.v1.MailService/SendTemplate", runtime.WithHTTPPathPattern("/api/v1/mail/send-template"))
+		annotatedContext, err := runtime.AnnotateContext(ctx, mux, req, "/mail.v1.MailService/SendTemplate", runtime.WithHTTPPathPattern("/api/v1/mail/admin/send-template"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -341,9 +341,9 @@ func RegisterMailServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_MailService_Send_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "mail", "send"}, ""))
+	pattern_MailService_Send_0                 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "mail", "admin", "send"}, ""))
 	pattern_MailService_SendInternal_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "mail", "internal", "send"}, ""))
-	pattern_MailService_SendTemplate_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"api", "v1", "mail", "send-template"}, ""))
+	pattern_MailService_SendTemplate_0         = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "mail", "admin", "send-template"}, ""))
 	pattern_MailService_SendTemplateInternal_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"api", "v1", "mail", "internal", "send-template"}, ""))
 )
 

@@ -18,7 +18,7 @@ service AuthService {
   // Admin aanmaken
   rpc CreateAdmin(CreateAdminRequest) returns (CreateAdminResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/create-admin"
+      post: "/api/v1/auth/admin/create-admin"
       body: "*"
     };
   }
@@ -76,7 +76,7 @@ service AuthService {
   
   rpc ChangeAccountType(ChangeAccountTypeRequest) returns (ChangeAccountTypeResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/internal/change-account-type"
+      post: "/api/v1/auth/admin/change-account-type"
       body: "*"
     };
   }
@@ -90,20 +90,20 @@ service AuthService {
 
   rpc WhoIs(WhoIsRequest) returns (WhoIsResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/internal/whois"
+      post: "/api/v1/auth/admin/whois"
       body: "*"
     };
   }
 
   rpc CreateVerificationToken(CreateVerificationTokenRequest) returns (CreateVerificationTokenResponse) {
     option (google.api.http) = {
-      get: "/api/v1/auth/internal/create-verification-token"
+      get: "/api/v1/auth/create-verification-token"
     };
   }
 
   rpc CheckVerificationToken(CheckVerificationTokenRequest) returns (CheckVerificationTokenResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/internal/check-verification-token"
+      post: "/api/v1/auth/check-verification-token"
       body: "*"
     };
   }
@@ -130,41 +130,41 @@ service AuthService {
 
   rpc CreateServiceClient(CreateServiceClientRequest) returns (CreateServiceClientResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/create-service-client"
+      post: "/api/v1/auth/admin/create-service-client"
       body: "*"
     };
   }
 
   rpc DeleteServiceClient(DeleteServiceClientRequest) returns (DeleteServiceClientResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/delete-service-client"
+      post: "/api/v1/auth/admin/delete-service-client"
       body: "*"
     };
   }
 
   rpc ListServiceClients(ListServiceClientsRequest) returns (ListServiceClientsResponse) {
     option (google.api.http) = {
-      get: "/api/v1/auth/list-service-clients"
+      get: "/api/v1/auth/admin/list-service-clients"
     };
   }
 
   rpc InviteUser(InviteUserRequest) returns (InviteUserResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/internal/invite-user"
+      post: "/api/v1/auth/admin/invite-user"
       body: "*"
     };
   }
 
   rpc RevokeInvite(RevokeInviteRequest) returns (RevokeInviteResponse) {
     option (google.api.http) = {
-      post: "/api/v1/auth/internal/revoke-invite"
+      post: "/api/v1/auth/admin/revoke-invite"
       body: "*"
     };
   }
 
   rpc ListInvites(ListInvitesRequest) returns (ListInvitesResponse) {
     option (google.api.http) = {
-      get: "/api/v1/auth/internal/list-invites"
+      get: "/api/v1/auth/admin/list-invites"
     };
   }
 }
