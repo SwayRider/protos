@@ -2249,6 +2249,7 @@ type ListInvitesRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Page          int32                  `protobuf:"varint,1,opt,name=page,proto3" json:"page,omitempty"`
 	PageSize      int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	Registered    *bool                  `protobuf:"varint,3,opt,name=registered,proto3,oneof" json:"registered,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2295,6 +2296,13 @@ func (x *ListInvitesRequest) GetPageSize() int32 {
 		return x.PageSize
 	}
 	return 0
+}
+
+func (x *ListInvitesRequest) GetRegistered() bool {
+	if x != nil && x.Registered != nil {
+		return *x.Registered
+	}
+	return false
 }
 
 type ListInvitesResponse struct {
@@ -2422,6 +2430,7 @@ type ListInvitesResponse_Invite struct {
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Email         string                 `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
 	CreatedAt     *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	Registered    *bool                  `protobuf:"varint,4,opt,name=registered,proto3,oneof" json:"registered,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -2475,6 +2484,13 @@ func (x *ListInvitesResponse_Invite) GetCreatedAt() *timestamppb.Timestamp {
 		return x.CreatedAt
 	}
 	return nil
+}
+
+func (x *ListInvitesResponse_Invite) GetRegistered() bool {
+	if x != nil && x.Registered != nil {
+		return *x.Registered
+	}
+	return false
 }
 
 var File_auth_v1_auth_proto protoreflect.FileDescriptor
@@ -2614,19 +2630,27 @@ const file_auth_v1_auth_proto_rawDesc = "" +
 	"\x13RevokeInviteRequest\x12\x14\n" +
 	"\x05email\x18\x01 \x01(\tR\x05email\"0\n" +
 	"\x14RevokeInviteResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage\"E\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage\"y\n" +
 	"\x12ListInvitesRequest\x12\x12\n" +
 	"\x04page\x18\x01 \x01(\x05R\x04page\x12\x1b\n" +
-	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\"\xe0\x01\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\x12#\n" +
+	"\n" +
+	"registered\x18\x03 \x01(\bH\x00R\n" +
+	"registered\x88\x01\x01B\r\n" +
+	"\v_registered\"\x95\x02\n" +
 	"\x13ListInvitesResponse\x12=\n" +
 	"\ainvites\x18\x01 \x03(\v2#.auth.v1.ListInvitesResponse.InviteR\ainvites\x12\x1f\n" +
 	"\vnum_invites\x18\x02 \x01(\x05R\n" +
-	"numInvites\x1ai\n" +
+	"numInvites\x1a\x9d\x01\n" +
 	"\x06Invite\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05email\x18\x02 \x01(\tR\x05email\x129\n" +
 	"\n" +
-	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt2\xf6\x15\n" +
+	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x12#\n" +
+	"\n" +
+	"registered\x18\x04 \x01(\bH\x00R\n" +
+	"registered\x88\x01\x01B\r\n" +
+	"\v_registered2\xf6\x15\n" +
 	"\vAuthService\x12\x97\x01\n" +
 	"\x15CheckPasswordStrength\x12%.auth.v1.CheckPasswordStrengthRequest\x1a&.auth.v1.CheckPasswordStrengthResponse\"/\x82\xd3\xe4\x93\x02):\x01*\"$/api/v1/auth/check-password-strength\x12t\n" +
 	"\vCreateAdmin\x12\x1b.auth.v1.CreateAdminRequest\x1a\x1c.auth.v1.CreateAdminResponse\"*\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/auth/admin/create-admin\x12a\n" +
@@ -2786,6 +2810,8 @@ func file_auth_v1_auth_proto_init() {
 		(*WhoIsRequest_Email)(nil),
 		(*WhoIsRequest_UserId)(nil),
 	}
+	file_auth_v1_auth_proto_msgTypes[44].OneofWrappers = []any{}
+	file_auth_v1_auth_proto_msgTypes[47].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

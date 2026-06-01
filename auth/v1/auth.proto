@@ -385,15 +385,17 @@ message RevokeInviteResponse {
 }
 
 message ListInvitesRequest {
-  int32 page      = 1;
-  int32 page_size = 2;
+  int32         page       = 1;
+  int32         page_size  = 2;
+  optional bool registered = 3;
 }
 
 message ListInvitesResponse {
   message Invite {
-    string id    = 1;
-    string email = 2;
+    string        id         = 1;
+    string        email      = 2;
     google.protobuf.Timestamp created_at = 3;
+    optional bool registered = 4;
   }
   repeated Invite invites     = 1;
   int32           num_invites = 2;
