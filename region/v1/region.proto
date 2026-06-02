@@ -42,6 +42,13 @@ service RegionService {
       body: "*"
     };
   }
+
+  rpc FindRouteRegionPaths(FindRouteRegionPathsRequest) returns (FindRouteRegionPathsResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/region/find-route-region-paths"
+      body: "*"
+    };
+  }
 }
 
 enum RoadType {
@@ -160,4 +167,17 @@ message FindRegionPathRequest {
 
 message FindRegionPathResponse {
   repeated string path = 1;
+}
+
+message RegionPath {
+  repeated string regions = 1;
+}
+
+message FindRouteRegionPathsRequest {
+  repeated common_types.Coordinate waypoints = 1;
+  double width_km = 2;
+}
+
+message FindRouteRegionPathsResponse {
+  repeated RegionPath paths = 1;
 }
