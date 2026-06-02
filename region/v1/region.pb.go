@@ -931,6 +931,146 @@ func (x *FindRegionPathResponse) GetPath() []string {
 	return nil
 }
 
+type RegionPath struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Regions       []string               `protobuf:"bytes,1,rep,name=regions,proto3" json:"regions,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *RegionPath) Reset() {
+	*x = RegionPath{}
+	mi := &file_region_v1_region_proto_msgTypes[14]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RegionPath) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RegionPath) ProtoMessage() {}
+
+func (x *RegionPath) ProtoReflect() protoreflect.Message {
+	mi := &file_region_v1_region_proto_msgTypes[14]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RegionPath.ProtoReflect.Descriptor instead.
+func (*RegionPath) Descriptor() ([]byte, []int) {
+	return file_region_v1_region_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *RegionPath) GetRegions() []string {
+	if x != nil {
+		return x.Regions
+	}
+	return nil
+}
+
+type FindRouteRegionPathsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Waypoints     []*geo.Coordinate      `protobuf:"bytes,1,rep,name=waypoints,proto3" json:"waypoints,omitempty"`
+	WidthKm       float64                `protobuf:"fixed64,2,opt,name=width_km,json=widthKm,proto3" json:"width_km,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindRouteRegionPathsRequest) Reset() {
+	*x = FindRouteRegionPathsRequest{}
+	mi := &file_region_v1_region_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindRouteRegionPathsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindRouteRegionPathsRequest) ProtoMessage() {}
+
+func (x *FindRouteRegionPathsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_region_v1_region_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindRouteRegionPathsRequest.ProtoReflect.Descriptor instead.
+func (*FindRouteRegionPathsRequest) Descriptor() ([]byte, []int) {
+	return file_region_v1_region_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *FindRouteRegionPathsRequest) GetWaypoints() []*geo.Coordinate {
+	if x != nil {
+		return x.Waypoints
+	}
+	return nil
+}
+
+func (x *FindRouteRegionPathsRequest) GetWidthKm() float64 {
+	if x != nil {
+		return x.WidthKm
+	}
+	return 0
+}
+
+type FindRouteRegionPathsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Paths         []*RegionPath          `protobuf:"bytes,1,rep,name=paths,proto3" json:"paths,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *FindRouteRegionPathsResponse) Reset() {
+	*x = FindRouteRegionPathsResponse{}
+	mi := &file_region_v1_region_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *FindRouteRegionPathsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FindRouteRegionPathsResponse) ProtoMessage() {}
+
+func (x *FindRouteRegionPathsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_region_v1_region_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FindRouteRegionPathsResponse.ProtoReflect.Descriptor instead.
+func (*FindRouteRegionPathsResponse) Descriptor() ([]byte, []int) {
+	return file_region_v1_region_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *FindRouteRegionPathsResponse) GetPaths() []*RegionPath {
+	if x != nil {
+		return x.Paths
+	}
+	return nil
+}
+
 var File_region_v1_region_proto protoreflect.FileDescriptor
 
 const file_region_v1_region_proto_rawDesc = "" +
@@ -991,18 +1131,27 @@ const file_region_v1_region_proto_rawDesc = "" +
 	"fromRegion\x12\x1b\n" +
 	"\tto_region\x18\x02 \x01(\tR\btoRegion\",\n" +
 	"\x16FindRegionPathResponse\x12\x12\n" +
-	"\x04path\x18\x01 \x03(\tR\x04path*?\n" +
+	"\x04path\x18\x01 \x03(\tR\x04path\"&\n" +
+	"\n" +
+	"RegionPath\x12\x18\n" +
+	"\aregions\x18\x01 \x03(\tR\aregions\"p\n" +
+	"\x1bFindRouteRegionPathsRequest\x126\n" +
+	"\twaypoints\x18\x01 \x03(\v2\x18.common_types.CoordinateR\twaypoints\x12\x19\n" +
+	"\bwidth_km\x18\x02 \x01(\x01R\awidthKm\"K\n" +
+	"\x1cFindRouteRegionPathsResponse\x12+\n" +
+	"\x05paths\x18\x01 \x03(\v2\x15.region.v1.RegionPathR\x05paths*?\n" +
 	"\bRoadType\x12\f\n" +
 	"\bMOTORWAY\x10\x00\x12\t\n" +
 	"\x05TRUNK\x10\x01\x12\v\n" +
 	"\aPRIMARY\x10\x02\x12\r\n" +
-	"\tSECONDARY\x10\x032\x91\x05\n" +
+	"\tSECONDARY\x10\x032\xae\x06\n" +
 	"\rRegionService\x12t\n" +
 	"\vSearchPoint\x12\x1d.region.v1.SearchPointRequest\x1a\x1e.region.v1.SearchPointResponse\"&\x82\xd3\xe4\x93\x02 :\x01*\"\x1b/api/v1/region/search-point\x12l\n" +
 	"\tSearchBox\x12\x1b.region.v1.SearchBoxRequest\x1a\x1c.region.v1.SearchBoxResponse\"$\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/region/search-box\x12x\n" +
 	"\fSearchRadius\x12\x1e.region.v1.SearchRadiusRequest\x1a\x1f.region.v1.SearchRadiusResponse\"'\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/region/search-radius\x12\x9d\x01\n" +
 	"\x15FindCrossingLocations\x12'.region.v1.FindCrossingLocationsRequest\x1a(.region.v1.FindCrossingLocationsResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/v1/region/find-crossing-locations\x12\x81\x01\n" +
-	"\x0eFindRegionPath\x12 .region.v1.FindRegionPathRequest\x1a!.region.v1.FindRegionPathResponse\"*\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/region/find-region-pathB0Z.github.com/swayrider/protos/region/v1;regionv1b\x06proto3"
+	"\x0eFindRegionPath\x12 .region.v1.FindRegionPathRequest\x1a!.region.v1.FindRegionPathResponse\"*\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/region/find-region-path\x12\x9a\x01\n" +
+	"\x14FindRouteRegionPaths\x12&.region.v1.FindRouteRegionPathsRequest\x1a'.region.v1.FindRouteRegionPathsResponse\"1\x82\xd3\xe4\x93\x02+:\x01*\"&/api/v1/region/find-route-region-pathsB0Z.github.com/swayrider/protos/region/v1;regionv1b\x06proto3"
 
 var (
 	file_region_v1_region_proto_rawDescOnce sync.Once
@@ -1017,7 +1166,7 @@ func file_region_v1_region_proto_rawDescGZIP() []byte {
 }
 
 var file_region_v1_region_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_region_v1_region_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_region_v1_region_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
 var file_region_v1_region_proto_goTypes = []any{
 	(RoadType)(0),                         // 0: region.v1.RoadType
 	(*BorderCrossing)(nil),                // 1: region.v1.BorderCrossing
@@ -1034,38 +1183,45 @@ var file_region_v1_region_proto_goTypes = []any{
 	(*FindCrossingLocationsResponse)(nil), // 12: region.v1.FindCrossingLocationsResponse
 	(*FindRegionPathRequest)(nil),         // 13: region.v1.FindRegionPathRequest
 	(*FindRegionPathResponse)(nil),        // 14: region.v1.FindRegionPathResponse
-	(*geo.Coordinate)(nil),                // 15: common_types.Coordinate
-	(*geo.BoundingBox)(nil),               // 16: common_types.BoundingBox
+	(*RegionPath)(nil),                    // 15: region.v1.RegionPath
+	(*FindRouteRegionPathsRequest)(nil),   // 16: region.v1.FindRouteRegionPathsRequest
+	(*FindRouteRegionPathsResponse)(nil),  // 17: region.v1.FindRouteRegionPathsResponse
+	(*geo.Coordinate)(nil),                // 18: common_types.Coordinate
+	(*geo.BoundingBox)(nil),               // 19: common_types.BoundingBox
 }
 var file_region_v1_region_proto_depIdxs = []int32{
 	0,  // 0: region.v1.BorderCrossing.road_type:type_name -> region.v1.RoadType
-	15, // 1: region.v1.BorderCrossing.location:type_name -> common_types.Coordinate
+	18, // 1: region.v1.BorderCrossing.location:type_name -> common_types.Coordinate
 	0,  // 2: region.v1.BorderCrossingSimpleConfig.road_type_order:type_name -> region.v1.RoadType
 	0,  // 3: region.v1.BorderCrossingDefinition.road_type_order:type_name -> region.v1.RoadType
 	3,  // 4: region.v1.BorderCrossingAdvancedConfig.definitions:type_name -> region.v1.BorderCrossingDefinition
-	15, // 5: region.v1.SearchPointRequest.location:type_name -> common_types.Coordinate
-	16, // 6: region.v1.SearchBoxRequest.box:type_name -> common_types.BoundingBox
-	15, // 7: region.v1.SearchRadiusRequest.location:type_name -> common_types.Coordinate
-	15, // 8: region.v1.FindCrossingLocationsRequest.from_location:type_name -> common_types.Coordinate
-	15, // 9: region.v1.FindCrossingLocationsRequest.to_location:type_name -> common_types.Coordinate
+	18, // 5: region.v1.SearchPointRequest.location:type_name -> common_types.Coordinate
+	19, // 6: region.v1.SearchBoxRequest.box:type_name -> common_types.BoundingBox
+	18, // 7: region.v1.SearchRadiusRequest.location:type_name -> common_types.Coordinate
+	18, // 8: region.v1.FindCrossingLocationsRequest.from_location:type_name -> common_types.Coordinate
+	18, // 9: region.v1.FindCrossingLocationsRequest.to_location:type_name -> common_types.Coordinate
 	2,  // 10: region.v1.FindCrossingLocationsRequest.simple_config:type_name -> region.v1.BorderCrossingSimpleConfig
 	4,  // 11: region.v1.FindCrossingLocationsRequest.advanced_config:type_name -> region.v1.BorderCrossingAdvancedConfig
 	1,  // 12: region.v1.FindCrossingLocationsResponse.crossings:type_name -> region.v1.BorderCrossing
-	5,  // 13: region.v1.RegionService.SearchPoint:input_type -> region.v1.SearchPointRequest
-	7,  // 14: region.v1.RegionService.SearchBox:input_type -> region.v1.SearchBoxRequest
-	9,  // 15: region.v1.RegionService.SearchRadius:input_type -> region.v1.SearchRadiusRequest
-	11, // 16: region.v1.RegionService.FindCrossingLocations:input_type -> region.v1.FindCrossingLocationsRequest
-	13, // 17: region.v1.RegionService.FindRegionPath:input_type -> region.v1.FindRegionPathRequest
-	6,  // 18: region.v1.RegionService.SearchPoint:output_type -> region.v1.SearchPointResponse
-	8,  // 19: region.v1.RegionService.SearchBox:output_type -> region.v1.SearchBoxResponse
-	10, // 20: region.v1.RegionService.SearchRadius:output_type -> region.v1.SearchRadiusResponse
-	12, // 21: region.v1.RegionService.FindCrossingLocations:output_type -> region.v1.FindCrossingLocationsResponse
-	14, // 22: region.v1.RegionService.FindRegionPath:output_type -> region.v1.FindRegionPathResponse
-	18, // [18:23] is the sub-list for method output_type
-	13, // [13:18] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	18, // 13: region.v1.FindRouteRegionPathsRequest.waypoints:type_name -> common_types.Coordinate
+	15, // 14: region.v1.FindRouteRegionPathsResponse.paths:type_name -> region.v1.RegionPath
+	5,  // 15: region.v1.RegionService.SearchPoint:input_type -> region.v1.SearchPointRequest
+	7,  // 16: region.v1.RegionService.SearchBox:input_type -> region.v1.SearchBoxRequest
+	9,  // 17: region.v1.RegionService.SearchRadius:input_type -> region.v1.SearchRadiusRequest
+	11, // 18: region.v1.RegionService.FindCrossingLocations:input_type -> region.v1.FindCrossingLocationsRequest
+	13, // 19: region.v1.RegionService.FindRegionPath:input_type -> region.v1.FindRegionPathRequest
+	16, // 20: region.v1.RegionService.FindRouteRegionPaths:input_type -> region.v1.FindRouteRegionPathsRequest
+	6,  // 21: region.v1.RegionService.SearchPoint:output_type -> region.v1.SearchPointResponse
+	8,  // 22: region.v1.RegionService.SearchBox:output_type -> region.v1.SearchBoxResponse
+	10, // 23: region.v1.RegionService.SearchRadius:output_type -> region.v1.SearchRadiusResponse
+	12, // 24: region.v1.RegionService.FindCrossingLocations:output_type -> region.v1.FindCrossingLocationsResponse
+	14, // 25: region.v1.RegionService.FindRegionPath:output_type -> region.v1.FindRegionPathResponse
+	17, // 26: region.v1.RegionService.FindRouteRegionPaths:output_type -> region.v1.FindRouteRegionPathsResponse
+	21, // [21:27] is the sub-list for method output_type
+	15, // [15:21] is the sub-list for method input_type
+	15, // [15:15] is the sub-list for extension type_name
+	15, // [15:15] is the sub-list for extension extendee
+	0,  // [0:15] is the sub-list for field type_name
 }
 
 func init() { file_region_v1_region_proto_init() }
@@ -1083,7 +1239,7 @@ func file_region_v1_region_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_region_v1_region_proto_rawDesc), len(file_region_v1_region_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   14,
+			NumMessages:   17,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

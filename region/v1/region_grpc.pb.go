@@ -24,6 +24,7 @@ const (
 	RegionService_SearchRadius_FullMethodName          = "/region.v1.RegionService/SearchRadius"
 	RegionService_FindCrossingLocations_FullMethodName = "/region.v1.RegionService/FindCrossingLocations"
 	RegionService_FindRegionPath_FullMethodName        = "/region.v1.RegionService/FindRegionPath"
+	RegionService_FindRouteRegionPaths_FullMethodName  = "/region.v1.RegionService/FindRouteRegionPaths"
 )
 
 // RegionServiceClient is the client API for RegionService service.
@@ -35,6 +36,7 @@ type RegionServiceClient interface {
 	SearchRadius(ctx context.Context, in *SearchRadiusRequest, opts ...grpc.CallOption) (*SearchRadiusResponse, error)
 	FindCrossingLocations(ctx context.Context, in *FindCrossingLocationsRequest, opts ...grpc.CallOption) (*FindCrossingLocationsResponse, error)
 	FindRegionPath(ctx context.Context, in *FindRegionPathRequest, opts ...grpc.CallOption) (*FindRegionPathResponse, error)
+	FindRouteRegionPaths(ctx context.Context, in *FindRouteRegionPathsRequest, opts ...grpc.CallOption) (*FindRouteRegionPathsResponse, error)
 }
 
 type regionServiceClient struct {
@@ -95,6 +97,16 @@ func (c *regionServiceClient) FindRegionPath(ctx context.Context, in *FindRegion
 	return out, nil
 }
 
+func (c *regionServiceClient) FindRouteRegionPaths(ctx context.Context, in *FindRouteRegionPathsRequest, opts ...grpc.CallOption) (*FindRouteRegionPathsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FindRouteRegionPathsResponse)
+	err := c.cc.Invoke(ctx, RegionService_FindRouteRegionPaths_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RegionServiceServer is the server API for RegionService service.
 // All implementations must embed UnimplementedRegionServiceServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type RegionServiceServer interface {
 	SearchRadius(context.Context, *SearchRadiusRequest) (*SearchRadiusResponse, error)
 	FindCrossingLocations(context.Context, *FindCrossingLocationsRequest) (*FindCrossingLocationsResponse, error)
 	FindRegionPath(context.Context, *FindRegionPathRequest) (*FindRegionPathResponse, error)
+	FindRouteRegionPaths(context.Context, *FindRouteRegionPathsRequest) (*FindRouteRegionPathsResponse, error)
 	mustEmbedUnimplementedRegionServiceServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedRegionServiceServer) FindCrossingLocations(context.Context, *
 }
 func (UnimplementedRegionServiceServer) FindRegionPath(context.Context, *FindRegionPathRequest) (*FindRegionPathResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method FindRegionPath not implemented")
+}
+func (UnimplementedRegionServiceServer) FindRouteRegionPaths(context.Context, *FindRouteRegionPathsRequest) (*FindRouteRegionPathsResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method FindRouteRegionPaths not implemented")
 }
 func (UnimplementedRegionServiceServer) mustEmbedUnimplementedRegionServiceServer() {}
 func (UnimplementedRegionServiceServer) testEmbeddedByValue()                       {}
@@ -240,6 +256,24 @@ func _RegionService_FindRegionPath_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RegionService_FindRouteRegionPaths_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindRouteRegionPathsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RegionServiceServer).FindRouteRegionPaths(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RegionService_FindRouteRegionPaths_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RegionServiceServer).FindRouteRegionPaths(ctx, req.(*FindRouteRegionPathsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RegionService_ServiceDesc is the grpc.ServiceDesc for RegionService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var RegionService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FindRegionPath",
 			Handler:    _RegionService_FindRegionPath_Handler,
+		},
+		{
+			MethodName: "FindRouteRegionPaths",
+			Handler:    _RegionService_FindRouteRegionPaths_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
