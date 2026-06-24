@@ -21,6 +21,13 @@ service SearchService {
       body: "*"
     };
   }
+
+  rpc Autocomplete(AutocompleteRequest) returns (AutocompleteResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/search/autocomplete"
+      body: "*"
+    };
+  }
 }
 
 message SearchRequest {
@@ -42,6 +49,17 @@ message ReverseGeocodeRequest {
 }
 
 message ReverseGeocodeResponse {
+  repeated Result results = 1;
+}
+
+message AutocompleteRequest {
+  string text = 1;
+  common_types.Coordinate focus_point = 2;
+  optional int32 size = 3;
+  optional string language = 4;
+}
+
+message AutocompleteResponse {
   repeated Result results = 1;
 }
 
