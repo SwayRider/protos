@@ -19,10 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MailService_Send_FullMethodName                 = "/mail.v1.MailService/Send"
-	MailService_SendInternal_FullMethodName         = "/mail.v1.MailService/SendInternal"
-	MailService_SendTemplate_FullMethodName         = "/mail.v1.MailService/SendTemplate"
-	MailService_SendTemplateInternal_FullMethodName = "/mail.v1.MailService/SendTemplateInternal"
+	MailService_Send_FullMethodName         = "/mail.v1.MailService/Send"
+	MailService_SendTemplate_FullMethodName = "/mail.v1.MailService/SendTemplate"
 )
 
 // MailServiceClient is the client API for MailService service.
@@ -30,9 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MailServiceClient interface {
 	Send(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error)
-	SendInternal(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error)
 	SendTemplate(ctx context.Context, in *SendTemplateRequest, opts ...grpc.CallOption) (*SendTemplateResponse, error)
-	SendTemplateInternal(ctx context.Context, in *SendTemplateRequest, opts ...grpc.CallOption) (*SendTemplateResponse, error)
 }
 
 type mailServiceClient struct {
@@ -53,30 +49,10 @@ func (c *mailServiceClient) Send(ctx context.Context, in *SendRequest, opts ...g
 	return out, nil
 }
 
-func (c *mailServiceClient) SendInternal(ctx context.Context, in *SendRequest, opts ...grpc.CallOption) (*SendResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SendResponse)
-	err := c.cc.Invoke(ctx, MailService_SendInternal_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *mailServiceClient) SendTemplate(ctx context.Context, in *SendTemplateRequest, opts ...grpc.CallOption) (*SendTemplateResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SendTemplateResponse)
 	err := c.cc.Invoke(ctx, MailService_SendTemplate_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *mailServiceClient) SendTemplateInternal(ctx context.Context, in *SendTemplateRequest, opts ...grpc.CallOption) (*SendTemplateResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(SendTemplateResponse)
-	err := c.cc.Invoke(ctx, MailService_SendTemplateInternal_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -88,9 +64,7 @@ func (c *mailServiceClient) SendTemplateInternal(ctx context.Context, in *SendTe
 // for forward compatibility.
 type MailServiceServer interface {
 	Send(context.Context, *SendRequest) (*SendResponse, error)
-	SendInternal(context.Context, *SendRequest) (*SendResponse, error)
 	SendTemplate(context.Context, *SendTemplateRequest) (*SendTemplateResponse, error)
-	SendTemplateInternal(context.Context, *SendTemplateRequest) (*SendTemplateResponse, error)
 	mustEmbedUnimplementedMailServiceServer()
 }
 
@@ -104,14 +78,8 @@ type UnimplementedMailServiceServer struct{}
 func (UnimplementedMailServiceServer) Send(context.Context, *SendRequest) (*SendResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Send not implemented")
 }
-func (UnimplementedMailServiceServer) SendInternal(context.Context, *SendRequest) (*SendResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method SendInternal not implemented")
-}
 func (UnimplementedMailServiceServer) SendTemplate(context.Context, *SendTemplateRequest) (*SendTemplateResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method SendTemplate not implemented")
-}
-func (UnimplementedMailServiceServer) SendTemplateInternal(context.Context, *SendTemplateRequest) (*SendTemplateResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method SendTemplateInternal not implemented")
 }
 func (UnimplementedMailServiceServer) mustEmbedUnimplementedMailServiceServer() {}
 func (UnimplementedMailServiceServer) testEmbeddedByValue()                     {}
@@ -152,24 +120,6 @@ func _MailService_Send_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MailService_SendInternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MailServiceServer).SendInternal(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: MailService_SendInternal_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MailServiceServer).SendInternal(ctx, req.(*SendRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _MailService_SendTemplate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SendTemplateRequest)
 	if err := dec(in); err != nil {
@@ -188,24 +138,6 @@ func _MailService_SendTemplate_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MailService_SendTemplateInternal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SendTemplateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MailServiceServer).SendTemplateInternal(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: MailService_SendTemplateInternal_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MailServiceServer).SendTemplateInternal(ctx, req.(*SendTemplateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // MailService_ServiceDesc is the grpc.ServiceDesc for MailService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -218,16 +150,8 @@ var MailService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MailService_Send_Handler,
 		},
 		{
-			MethodName: "SendInternal",
-			Handler:    _MailService_SendInternal_Handler,
-		},
-		{
 			MethodName: "SendTemplate",
 			Handler:    _MailService_SendTemplate_Handler,
-		},
-		{
-			MethodName: "SendTemplateInternal",
-			Handler:    _MailService_SendTemplateInternal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
