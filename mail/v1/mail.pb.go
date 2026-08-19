@@ -330,12 +330,10 @@ const file_mail_v1_mail_proto_rawDesc = "" +
 	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
 	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"0\n" +
 	"\x14SendTemplateResponse\x12\x18\n" +
-	"\amessage\x18\x01 \x01(\tR\amessage2\xca\x03\n" +
+	"\amessage\x18\x01 \x01(\tR\amessage2\xe0\x01\n" +
 	"\vMailService\x12W\n" +
-	"\x04Send\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/mail/admin/send\x12b\n" +
-	"\fSendInternal\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"%\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/mail/internal/send\x12x\n" +
-	"\fSendTemplate\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/mail/admin/send-template\x12\x83\x01\n" +
-	"\x14SendTemplateInternal\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\".\x82\xd3\xe4\x93\x02(:\x01*\"#/api/v1/mail/internal/send-templateB,Z*github.com/swayrider/protos/mail/v1;mailv1b\x06proto3"
+	"\x04Send\x12\x14.mail.v1.SendRequest\x1a\x15.mail.v1.SendResponse\"\"\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/mail/admin/send\x12x\n" +
+	"\fSendTemplate\x12\x1c.mail.v1.SendTemplateRequest\x1a\x1d.mail.v1.SendTemplateResponse\"+\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/mail/admin/send-templateB,Z*github.com/swayrider/protos/mail/v1;mailv1b\x06proto3"
 
 var (
 	file_mail_v1_mail_proto_rawDescOnce sync.Once
@@ -360,15 +358,11 @@ var file_mail_v1_mail_proto_goTypes = []any{
 var file_mail_v1_mail_proto_depIdxs = []int32{
 	4, // 0: mail.v1.SendTemplateRequest.data:type_name -> mail.v1.SendTemplateRequest.DataEntry
 	0, // 1: mail.v1.MailService.Send:input_type -> mail.v1.SendRequest
-	0, // 2: mail.v1.MailService.SendInternal:input_type -> mail.v1.SendRequest
-	2, // 3: mail.v1.MailService.SendTemplate:input_type -> mail.v1.SendTemplateRequest
-	2, // 4: mail.v1.MailService.SendTemplateInternal:input_type -> mail.v1.SendTemplateRequest
-	1, // 5: mail.v1.MailService.Send:output_type -> mail.v1.SendResponse
-	1, // 6: mail.v1.MailService.SendInternal:output_type -> mail.v1.SendResponse
-	3, // 7: mail.v1.MailService.SendTemplate:output_type -> mail.v1.SendTemplateResponse
-	3, // 8: mail.v1.MailService.SendTemplateInternal:output_type -> mail.v1.SendTemplateResponse
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
+	2, // 2: mail.v1.MailService.SendTemplate:input_type -> mail.v1.SendTemplateRequest
+	1, // 3: mail.v1.MailService.Send:output_type -> mail.v1.SendResponse
+	3, // 4: mail.v1.MailService.SendTemplate:output_type -> mail.v1.SendTemplateResponse
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
