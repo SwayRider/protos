@@ -167,6 +167,54 @@ service AuthService {
       get: "/api/v1/auth/admin/list-invites"
     };
   }
+
+  rpc SetupMFA(SetupMFARequest) returns (SetupMFAResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/setup"
+      body: "*"
+    };
+  }
+
+  rpc EnableMFA(EnableMFARequest) returns (EnableMFAResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/enable"
+      body: "*"
+    };
+  }
+
+  rpc DisableMFA(DisableMFARequest) returns (DisableMFAResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/disable"
+      body: "*"
+    };
+  }
+
+  rpc GetMFAStatus(GetMFAStatusRequest) returns (GetMFAStatusResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/auth/mfa/status"
+    };
+  }
+
+  rpc VerifyMFA(VerifyMFARequest) returns (VerifyMFAResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/verify"
+      body: "*"
+    };
+  }
+
+  rpc GenerateBackupCodes(GenerateBackupCodesRequest) returns (GenerateBackupCodesResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/backup-codes"
+      body: "*"
+    };
+  }
+
+  rpc RequestMfaReset(RequestMfaResetRequest) returns (RequestMfaResetResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/reset/request"
+      body: "*"
+    };
+  }
 }
 
 message CheckPasswordStrengthRequest {
@@ -227,6 +275,8 @@ message LoginRequest {
 message LoginResponse {
   string access_token = 1;
   string refresh_token = 2;
+  bool   mfa_required = 3; // true when the account has MFA enabled
+  string mfa_token    = 4; // pending-login challenge token, only when mfa_required
 }
 
 message LogoutRequest {
@@ -326,6 +376,15 @@ message ResetPasswordResponse {
   string message = 1;
 }
 
+message RequestMfaResetRequest {
+  string email = 1;
+  string password = 2;
+  string mfaResetUrl = 3;
+  string backupCode = 4;
+}
+
+message RequestMfaResetResponse {}
+
 message PublicKeysRequest {}
 
 message PublicKeysResponse {
@@ -400,4 +459,28 @@ message ListInvitesResponse {
   repeated Invite invites     = 1;
   int32           num_invites = 2;
 }
+
+message SetupMFARequest {}
+message SetupMFAResponse {
+  string secret        = 1; // base32, shown once + grouped in the app
+  string otpauth_url   = 2;
+  string qr_png_base64 = 3; // server-rendered QR of otpauth_url
+}
+message EnableMFARequest { string code = 1; }
+message EnableMFAResponse { repeated string backup_codes = 1; }
+message DisableMFARequest { string password = 1; }
+message DisableMFAResponse {}
+message GetMFAStatusRequest {}
+message GetMFAStatusResponse { bool enabled = 1; }
+message VerifyMFARequest {
+  string mfa_token   = 1;
+  string code        = 2;
+  bool   remember_me = 3;
+}
+message VerifyMFAResponse {
+  string access_token  = 1;
+  string refresh_token = 2;
+}
+message GenerateBackupCodesRequest { string password = 1; }
+message GenerateBackupCodesResponse { repeated string backup_codes = 1; }
 
