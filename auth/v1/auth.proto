@@ -208,6 +208,13 @@ service AuthService {
       body: "*"
     };
   }
+
+  rpc RequestMfaReset(RequestMfaResetRequest) returns (RequestMfaResetResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/auth/mfa/reset/request"
+      body: "*"
+    };
+  }
 }
 
 message CheckPasswordStrengthRequest {
@@ -368,6 +375,15 @@ message ResetPasswordRequest {
 message ResetPasswordResponse {
   string message = 1;
 }
+
+message RequestMfaResetRequest {
+  string email = 1;
+  string password = 2;
+  string mfaResetUrl = 3;
+  string backupCode = 4;
+}
+
+message RequestMfaResetResponse {}
 
 message PublicKeysRequest {}
 

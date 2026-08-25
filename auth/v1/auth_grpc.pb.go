@@ -48,6 +48,7 @@ const (
 	AuthService_GetMFAStatus_FullMethodName            = "/auth.v1.AuthService/GetMFAStatus"
 	AuthService_VerifyMFA_FullMethodName               = "/auth.v1.AuthService/VerifyMFA"
 	AuthService_GenerateBackupCodes_FullMethodName     = "/auth.v1.AuthService/GenerateBackupCodes"
+	AuthService_RequestMfaReset_FullMethodName         = "/auth.v1.AuthService/RequestMfaReset"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -87,6 +88,7 @@ type AuthServiceClient interface {
 	GetMFAStatus(ctx context.Context, in *GetMFAStatusRequest, opts ...grpc.CallOption) (*GetMFAStatusResponse, error)
 	VerifyMFA(ctx context.Context, in *VerifyMFARequest, opts ...grpc.CallOption) (*VerifyMFAResponse, error)
 	GenerateBackupCodes(ctx context.Context, in *GenerateBackupCodesRequest, opts ...grpc.CallOption) (*GenerateBackupCodesResponse, error)
+	RequestMfaReset(ctx context.Context, in *RequestMfaResetRequest, opts ...grpc.CallOption) (*RequestMfaResetResponse, error)
 }
 
 type authServiceClient struct {
@@ -387,6 +389,16 @@ func (c *authServiceClient) GenerateBackupCodes(ctx context.Context, in *Generat
 	return out, nil
 }
 
+func (c *authServiceClient) RequestMfaReset(ctx context.Context, in *RequestMfaResetRequest, opts ...grpc.CallOption) (*RequestMfaResetResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(RequestMfaResetResponse)
+	err := c.cc.Invoke(ctx, AuthService_RequestMfaReset_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AuthServiceServer is the server API for AuthService service.
 // All implementations must embed UnimplementedAuthServiceServer
 // for forward compatibility.
@@ -424,6 +436,7 @@ type AuthServiceServer interface {
 	GetMFAStatus(context.Context, *GetMFAStatusRequest) (*GetMFAStatusResponse, error)
 	VerifyMFA(context.Context, *VerifyMFARequest) (*VerifyMFAResponse, error)
 	GenerateBackupCodes(context.Context, *GenerateBackupCodesRequest) (*GenerateBackupCodesResponse, error)
+	RequestMfaReset(context.Context, *RequestMfaResetRequest) (*RequestMfaResetResponse, error)
 	mustEmbedUnimplementedAuthServiceServer()
 }
 
@@ -520,6 +533,9 @@ func (UnimplementedAuthServiceServer) VerifyMFA(context.Context, *VerifyMFAReque
 }
 func (UnimplementedAuthServiceServer) GenerateBackupCodes(context.Context, *GenerateBackupCodesRequest) (*GenerateBackupCodesResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method GenerateBackupCodes not implemented")
+}
+func (UnimplementedAuthServiceServer) RequestMfaReset(context.Context, *RequestMfaResetRequest) (*RequestMfaResetResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method RequestMfaReset not implemented")
 }
 func (UnimplementedAuthServiceServer) mustEmbedUnimplementedAuthServiceServer() {}
 func (UnimplementedAuthServiceServer) testEmbeddedByValue()                     {}
@@ -1064,6 +1080,24 @@ func _AuthService_GenerateBackupCodes_Handler(srv interface{}, ctx context.Conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AuthService_RequestMfaReset_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestMfaResetRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).RequestMfaReset(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AuthService_RequestMfaReset_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).RequestMfaReset(ctx, req.(*RequestMfaResetRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AuthService_ServiceDesc is the grpc.ServiceDesc for AuthService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1186,6 +1220,10 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateBackupCodes",
 			Handler:    _AuthService_GenerateBackupCodes_Handler,
+		},
+		{
+			MethodName: "RequestMfaReset",
+			Handler:    _AuthService_RequestMfaReset_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
