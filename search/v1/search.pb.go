@@ -248,13 +248,17 @@ func (x *ReverseGeocodeResponse) GetResults() []*Result {
 }
 
 type AutocompleteRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Text          string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
-	FocusPoint    *geo.Coordinate        `protobuf:"bytes,2,opt,name=focus_point,json=focusPoint,proto3" json:"focus_point,omitempty"`
-	Size          *int32                 `protobuf:"varint,3,opt,name=size,proto3,oneof" json:"size,omitempty"`
-	Language      *string                `protobuf:"bytes,4,opt,name=language,proto3,oneof" json:"language,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	Text       string                 `protobuf:"bytes,1,opt,name=text,proto3" json:"text,omitempty"`
+	FocusPoint *geo.Coordinate        `protobuf:"bytes,2,opt,name=focus_point,json=focusPoint,proto3" json:"focus_point,omitempty"`
+	Size       *int32                 `protobuf:"varint,3,opt,name=size,proto3,oneof" json:"size,omitempty"`
+	Language   *string                `protobuf:"bytes,4,opt,name=language,proto3,oneof" json:"language,omitempty"`
+	// When set, biases street-level result collapsing toward the address
+	// whose house number is numerically closest to this value, instead of
+	// the highest-confidence address on the street.
+	TargetHousenumber string `protobuf:"bytes,5,opt,name=target_housenumber,json=targetHousenumber,proto3" json:"target_housenumber,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *AutocompleteRequest) Reset() {
@@ -311,6 +315,13 @@ func (x *AutocompleteRequest) GetSize() int32 {
 func (x *AutocompleteRequest) GetLanguage() string {
 	if x != nil && x.Language != nil {
 		return *x.Language
+	}
+	return ""
+}
+
+func (x *AutocompleteRequest) GetTargetHousenumber() string {
+	if x != nil {
+		return x.TargetHousenumber
 	}
 	return ""
 }
@@ -531,13 +542,14 @@ const file_search_v1_search_proto_rawDesc = "" +
 	"\x05_sizeB\v\n" +
 	"\t_language\"E\n" +
 	"\x16ReverseGeocodeResponse\x12+\n" +
-	"\aresults\x18\x01 \x03(\v2\x11.search.v1.ResultR\aresults\"\xb4\x01\n" +
+	"\aresults\x18\x01 \x03(\v2\x11.search.v1.ResultR\aresults\"\xe3\x01\n" +
 	"\x13AutocompleteRequest\x12\x12\n" +
 	"\x04text\x18\x01 \x01(\tR\x04text\x129\n" +
 	"\vfocus_point\x18\x02 \x01(\v2\x18.common_types.CoordinateR\n" +
 	"focusPoint\x12\x17\n" +
 	"\x04size\x18\x03 \x01(\x05H\x00R\x04size\x88\x01\x01\x12\x1f\n" +
-	"\blanguage\x18\x04 \x01(\tH\x01R\blanguage\x88\x01\x01B\a\n" +
+	"\blanguage\x18\x04 \x01(\tH\x01R\blanguage\x88\x01\x01\x12-\n" +
+	"\x12target_housenumber\x18\x05 \x01(\tR\x11targetHousenumberB\a\n" +
 	"\x05_sizeB\v\n" +
 	"\t_language\"C\n" +
 	"\x14AutocompleteResponse\x12+\n" +
