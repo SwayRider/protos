@@ -57,6 +57,10 @@ message AutocompleteRequest {
   common_types.Coordinate focus_point = 2;
   optional int32 size = 3;
   optional string language = 4;
+  // When set, biases street-level result collapsing toward the address
+  // whose house number is numerically closest to this value, instead of
+  // the highest-confidence address on the street.
+  string target_housenumber = 5;
 }
 
 message AutocompleteResponse {
