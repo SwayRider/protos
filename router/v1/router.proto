@@ -16,12 +16,15 @@ service RouterService {
     };
   }
 
-  // Rejoin guides a rider who left a planned route back onto it: it tries
-  // several points of the original route ahead of the rider and answers with
-  // the best connector, or with a fresh route when rejoining is clearly worse.
-  rpc Rejoin(RejoinRequest) returns (RejoinResponse) {
+  // Reroute calculates a new route for a rider who left the route they
+  // were following: from the rider's position (the first location, with its
+  // preferred_heading) to the remaining stops, avoiding the areas in
+  // exclude_polygons. The service prefers a route that goes the way the rider
+  // is travelling and avoids the excluded areas, unless that is much slower
+  // than the best route without those constraints.
+  rpc Reroute(RouteRequest) returns (RouteResponse) {
     option (google.api.http) = {
-      post: "/api/v1/router/rejoin"
+      post: "/api/v1/router/reroute"
       body: "*"
     };
   }
@@ -406,36 +409,5 @@ message RouteResponse {
   optional string id = 1;
   Trip trip = 2;
   RouteSummary summary = 3;
-}
-
-// A point of the original route a rider can rejoin at.
-message RejoinPoint {
-  common_types.Coordinate location = 1;
-  // Direction of the original route at the point, degrees clockwise from
-  // north; the connector arrives travelling that way.
-  int32 heading = 2;
-  // Travel time left on the original route after this point.
-  double remaining_seconds = 3;
-}
-
-message RejoinRequest {
-  // The fresh route from the rider's position (first location, with its
-  // preferred heading) through the remaining stops, with the options and
-  // exclusions to use for every candidate.
-  RouteRequest fresh = 1;
-  repeated RejoinPoint rejoin_points = 2;
-}
-
-enum RejoinKind {
-  // The trip is a fresh route to the remaining stops.
-  RJ_FRESH = 0;
-  // The trip is the connector to rejoin_points[rejoin_index].
-  RJ_REJOIN = 1;
-}
-
-message RejoinResponse {
-  RejoinKind kind = 1;
-  int32 rejoin_index = 2;
-  Trip trip = 3;
 }
 
