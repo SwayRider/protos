@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RouterService_Route_FullMethodName  = "/router.v1.RouterService/Route"
-	RouterService_Rejoin_FullMethodName = "/router.v1.RouterService/Rejoin"
+	RouterService_Route_FullMethodName   = "/router.v1.RouterService/Route"
+	RouterService_Reroute_FullMethodName = "/router.v1.RouterService/Reroute"
 )
 
 // RouterServiceClient is the client API for RouterService service.
@@ -28,10 +28,13 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type RouterServiceClient interface {
 	Route(ctx context.Context, in *RouteRequest, opts ...grpc.CallOption) (*RouteResponse, error)
-	// Rejoin guides a rider who left a planned route back onto it: it tries
-	// several points of the original route ahead of the rider and answers with
-	// the best connector, or with a fresh route when rejoining is clearly worse.
-	Rejoin(ctx context.Context, in *RejoinRequest, opts ...grpc.CallOption) (*RejoinResponse, error)
+	// Reroute calculates a new route for a rider who left the route they
+	// were following: from the rider's position (the first location, with its
+	// preferred_heading) to the remaining stops, avoiding the areas in
+	// exclude_polygons. The service prefers a route that goes the way the rider
+	// is travelling and avoids the excluded areas, unless that is much slower
+	// than the best route without those constraints.
+	Reroute(ctx context.Context, in *RouteRequest, opts ...grpc.CallOption) (*RouteResponse, error)
 }
 
 type routerServiceClient struct {
@@ -52,10 +55,10 @@ func (c *routerServiceClient) Route(ctx context.Context, in *RouteRequest, opts 
 	return out, nil
 }
 
-func (c *routerServiceClient) Rejoin(ctx context.Context, in *RejoinRequest, opts ...grpc.CallOption) (*RejoinResponse, error) {
+func (c *routerServiceClient) Reroute(ctx context.Context, in *RouteRequest, opts ...grpc.CallOption) (*RouteResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RejoinResponse)
-	err := c.cc.Invoke(ctx, RouterService_Rejoin_FullMethodName, in, out, cOpts...)
+	out := new(RouteResponse)
+	err := c.cc.Invoke(ctx, RouterService_Reroute_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,10 +70,13 @@ func (c *routerServiceClient) Rejoin(ctx context.Context, in *RejoinRequest, opt
 // for forward compatibility.
 type RouterServiceServer interface {
 	Route(context.Context, *RouteRequest) (*RouteResponse, error)
-	// Rejoin guides a rider who left a planned route back onto it: it tries
-	// several points of the original route ahead of the rider and answers with
-	// the best connector, or with a fresh route when rejoining is clearly worse.
-	Rejoin(context.Context, *RejoinRequest) (*RejoinResponse, error)
+	// Reroute calculates a new route for a rider who left the route they
+	// were following: from the rider's position (the first location, with its
+	// preferred_heading) to the remaining stops, avoiding the areas in
+	// exclude_polygons. The service prefers a route that goes the way the rider
+	// is travelling and avoids the excluded areas, unless that is much slower
+	// than the best route without those constraints.
+	Reroute(context.Context, *RouteRequest) (*RouteResponse, error)
 	mustEmbedUnimplementedRouterServiceServer()
 }
 
@@ -84,8 +90,8 @@ type UnimplementedRouterServiceServer struct{}
 func (UnimplementedRouterServiceServer) Route(context.Context, *RouteRequest) (*RouteResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method Route not implemented")
 }
-func (UnimplementedRouterServiceServer) Rejoin(context.Context, *RejoinRequest) (*RejoinResponse, error) {
-	return nil, status.Error(codes.Unimplemented, "method Rejoin not implemented")
+func (UnimplementedRouterServiceServer) Reroute(context.Context, *RouteRequest) (*RouteResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Reroute not implemented")
 }
 func (UnimplementedRouterServiceServer) mustEmbedUnimplementedRouterServiceServer() {}
 func (UnimplementedRouterServiceServer) testEmbeddedByValue()                       {}
@@ -126,20 +132,20 @@ func _RouterService_Route_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-func _RouterService_Rejoin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RejoinRequest)
+func _RouterService_Reroute_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RouteRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(RouterServiceServer).Rejoin(ctx, in)
+		return srv.(RouterServiceServer).Reroute(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: RouterService_Rejoin_FullMethodName,
+		FullMethod: RouterService_Reroute_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RouterServiceServer).Rejoin(ctx, req.(*RejoinRequest))
+		return srv.(RouterServiceServer).Reroute(ctx, req.(*RouteRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -156,8 +162,8 @@ var RouterService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _RouterService_Route_Handler,
 		},
 		{
-			MethodName: "Rejoin",
-			Handler:    _RouterService_Rejoin_Handler,
+			MethodName: "Reroute",
+			Handler:    _RouterService_Reroute_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
