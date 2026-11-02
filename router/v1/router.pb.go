@@ -1349,8 +1349,16 @@ type Maneuver struct {
 	BearingBefore                    int32                  `protobuf:"varint,28,opt,name=bearing_before,json=bearingBefore,proto3" json:"bearing_before,omitempty"`
 	BearingAfter                     int32                  `protobuf:"varint,29,opt,name=bearing_after,json=bearingAfter,proto3" json:"bearing_after,omitempty"`
 	Lanes                            []*TurnLane            `protobuf:"bytes,30,rep,name=lanes,proto3" json:"lanes,omitempty"`
-	unknownFields                    protoimpl.UnknownFields
-	sizeCache                        protoimpl.SizeCache
+	// Roundabout arms (types 26/27), when known. Degrees 0-359, clockwise,
+	// relative to the direction of travel on entry: 0 is straight on, 180 is the
+	// road the roundabout was entered from. Exit angles are in the order the
+	// roundabout is passed, so `roundabout_exit_count` picks the exit taken.
+	// Entry angles are roads that can only be driven into the roundabout.
+	// Both are empty when the arms are not known.
+	RoundaboutExitAngles  []int32 `protobuf:"varint,31,rep,packed,name=roundabout_exit_angles,json=roundaboutExitAngles,proto3" json:"roundabout_exit_angles,omitempty"`
+	RoundaboutEntryAngles []int32 `protobuf:"varint,32,rep,packed,name=roundabout_entry_angles,json=roundaboutEntryAngles,proto3" json:"roundabout_entry_angles,omitempty"`
+	unknownFields         protoimpl.UnknownFields
+	sizeCache             protoimpl.SizeCache
 }
 
 func (x *Maneuver) Reset() {
@@ -1589,6 +1597,20 @@ func (x *Maneuver) GetBearingAfter() int32 {
 func (x *Maneuver) GetLanes() []*TurnLane {
 	if x != nil {
 		return x.Lanes
+	}
+	return nil
+}
+
+func (x *Maneuver) GetRoundaboutExitAngles() []int32 {
+	if x != nil {
+		return x.RoundaboutExitAngles
+	}
+	return nil
+}
+
+func (x *Maneuver) GetRoundaboutEntryAngles() []int32 {
+	if x != nil {
+		return x.RoundaboutEntryAngles
 	}
 	return nil
 }
@@ -2878,7 +2900,7 @@ const file_router_v1_router_proto_rawDesc = "" +
 	"\f_excludeRampB\x12\n" +
 	"\x10_excludeClosuresB\x11\n" +
 	"\x0f_min_road_classB\x11\n" +
-	"\x0f_max_road_class\"\x85\r\n" +
+	"\x0f_max_road_class\"\xf3\r\n" +
 	"\bManeuver\x12+\n" +
 	"\x04type\x18\x01 \x01(\x0e2\x17.router.v1.ManeuverTypeR\x04type\x12 \n" +
 	"\vinstruction\x18\x02 \x01(\tR\vinstruction\x12M\n" +
@@ -2913,7 +2935,9 @@ const file_router_v1_router_proto_rawDesc = "" +
 	"\x11bss_maneuver_type\x18\x1b \x01(\x0e2\x1c.router.v1.BikeShareManeuverH\rR\x0fbssManeuverType\x88\x01\x01\x12%\n" +
 	"\x0ebearing_before\x18\x1c \x01(\x05R\rbearingBefore\x12#\n" +
 	"\rbearing_after\x18\x1d \x01(\x05R\fbearingAfter\x12)\n" +
-	"\x05lanes\x18\x1e \x03(\v2\x13.router.v1.TurnLaneR\x05lanesB\a\n" +
+	"\x05lanes\x18\x1e \x03(\v2\x13.router.v1.TurnLaneR\x05lanes\x124\n" +
+	"\x16roundabout_exit_angles\x18\x1f \x03(\x05R\x14roundaboutExitAngles\x126\n" +
+	"\x17roundabout_entry_angles\x18  \x03(\x05R\x15roundaboutEntryAnglesB\a\n" +
 	"\x05_tollB\n" +
 	"\n" +
 	"\b_highwayB\b\n" +

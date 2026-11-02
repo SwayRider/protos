@@ -270,6 +270,14 @@ message Maneuver {
   int32 bearing_before = 28;
   int32 bearing_after = 29;
   repeated TurnLane lanes = 30;
+  // Roundabout arms (types 26/27), when known. Degrees 0-359, clockwise,
+  // relative to the direction of travel on entry: 0 is straight on, 180 is the
+  // road the roundabout was entered from. Exit angles are in the order the
+  // roundabout is passed, so `roundabout_exit_count` picks the exit taken.
+  // Entry angles are roads that can only be driven into the roundabout.
+  // Both are empty when the arms are not known.
+  repeated int32 roundabout_exit_angles = 31;
+  repeated int32 roundabout_entry_angles = 32;
 }
 
 message RouteLocation {
